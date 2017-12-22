@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 var _ = require('lodash');
 var crypto = require('crypto');
+var price = require('./price.js');
 
 /* app.options('*', cors());
 app.use(cors());
@@ -14,7 +15,12 @@ app.use(bodyParser.urlencoded({
   extended: false
 })); */
 
-var server = http.createServer(app).listen(3000, function () { });
+app.use(function (req, res, next) {
+  console.log(req);
+  next();
+});
+
+var server = http.createServer(app).listen(80, function () { });
 console.log('start');
 server.timeout = 240000;
 
@@ -43,3 +49,23 @@ app.get('/', (req, res) => {
   res.end('');
 });
 
+app.post('/', (req, res) => {
+  console.log('POST');
+  let ToUserName = req.query.openid;//  是      接收方帐号（收到的OpenID）
+  let FromUserName = 'gh_5650e9dd3c1c';//是     开发者微信号
+  let CreateTime = 1513926999;//Date.now()/1000; //     是      消息创建时间 （整型）
+  let MsgType = 'text';//是     text
+
+  let zbPair = price.zbPair;
+  let innerPair = price.innerPair;
+
+  let Content = "ZB:\nbuy:" + zbPair.buyPrice.toFixed(4) + "sell:" + zbPair.sellPrice.toFixed(4);
+  Content += "Bitshares:\nbuy:" + innerPair.buyPrice.toFixed(4) + "sell" + innerPair.sellPrice.toFixed(4);
+
+
+  //let Content = 'hello';      //是    回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）
+  let tmpStr = '<xml><ToUserName><![CDATA[' + ToUserName + ']]></ToUserName><FromUserName><![CDATA[' + FromUserName + ']]></FromUserName><CreateTime>' + CreateTime + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' + Content + ']]></Content></xml>';
+  console.log(tmpStr);
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end(tmpStr);
+});

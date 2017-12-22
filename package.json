@@ -18,6 +18,9 @@
   "homepage": "https://github.com/qiushaoxi/wx-server#readme",
   "dependencies": {
     "express": "^4.16.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "nodemailer": "^4.4.1",
+    "superagent": "^3.8.2",
+    "ws": "^3.3.3"
   }
 }
