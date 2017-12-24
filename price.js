@@ -28,9 +28,21 @@ function getMargin(src, des) {
     return margin.toFixed(4);
 }
 
+var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。
+var sendNotification = function (subject, message) {
+    if (flag) {
+        mail.sendMail(subject);
+        sms.sendSMS();
+        flag = false;
+        setTimeout(() => {
+            flag = true;
+        }, config.mail_timeout);
+    }
+}
+
 setInterval(() => {
     console.log("<=======================================================>");
-    console.log("Mail Flag:", mail.flag);
+    console.log("Notification Flag:", flag);
     //显示各市场价格
 
     //输出文字
@@ -61,8 +73,7 @@ setInterval(() => {
             tmpText += '\n';
             if (margin > alarmMargin) {
                 let subject = src.market + " buy: " + src.buyPrice + " , " + des.market + " sell: " + des.sellPrice;
-                mail.sendMail(subject);
-                sms.sendSMS();
+                sendNotification(subject);
             }
         }
         tmpText += '----------\n';

@@ -5,7 +5,7 @@ const config = require('../config.json');
 // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
 // nodemailer.createTestAccount((err, account) => {
-function _sendMail(subject, message) {
+function sendMail(subject, message) {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport(config.mail);
 
@@ -35,15 +35,5 @@ function _sendMail(subject, message) {
     });
 }
 
-var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。
-var sendMail = function (subject, message) {
-    if (flag) {
-        _sendMail(subject, message);
-        flag = false;
-        setTimeout(() => {
-            flag = true;
-        }, config.mail_timeout);
-    }
-}
 exports.sendMail = sendMail;
 exports.flag = flag;
