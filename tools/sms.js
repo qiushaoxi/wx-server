@@ -33,7 +33,7 @@ function sendSMS(message) {
         }
         // res.text 包含未解析前的响应内容
         console.log(res.text);
-        let resJson = JSON.parse(tes.text);
+        let resJson = JSON.parse(res.text);
         if(resJson.code == 200){
             console.log('send SMS ok.');
         } else {

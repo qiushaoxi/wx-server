@@ -31,7 +31,7 @@ function getMargin(src, des) {
 var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。
 var sendNotification = function (subject, message) {
     if (flag) {
-        mail.sendMail(subject);
+        mail.sendMail(subject, message);
         sms.sendSMS();
         flag = false;
         setTimeout(() => {
@@ -46,6 +46,8 @@ setInterval(() => {
     //显示各市场价格
 
     //输出文字
+    let hasMargin = false;
+    let bestMargin = 0;
     let tmpText = "BTS 各市场价格\n";
     tmpText += "==========\n";
     for (let i = 0; i < pairs.length; i++) {
@@ -69,11 +71,15 @@ setInterval(() => {
                 continue;
             }
             let margin = getMargin(src, des);
-            tmpText += (src.market + " => " + des.market + " : " + (margin * 100).toFixed(2) + '%');
-            tmpText += '\n';
+            if (margin > 0) {
+                tmpText += (src.market + " => " + des.market + " : " + (margin * 100).toFixed(2) + '%');
+                tmpText += '\n';
+            }
             if (margin > alarmMargin) {
-                let subject = src.market + " buy: " + src.buyPrice + " , " + des.market + " sell: " + des.sellPrice;
-                sendNotification(subject);
+                hasMargin = true;
+                if (margin > bestMargin) {
+                    bestMargin = margin;
+                }
             }
         }
         tmpText += '----------\n';
@@ -81,6 +87,12 @@ setInterval(() => {
 
     text = tmpText;
     console.log(text);
+
+    //如果有显著差价，提醒
+    if (hasMargin) {
+        let subject = ("Margin : " + (bestMargin * 100).toFixed(2) + '%');
+        sendNotification(subject, text);
+    }
 
 }, interval);
 

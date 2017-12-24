@@ -6,6 +6,12 @@ const config = require('../config.json');
 // Only needed if you don't have a real mail account for testing
 // nodemailer.createTestAccount((err, account) => {
 function sendMail(subject, message) {
+    //替换\n
+    let mailBody = message;
+    let regExp = /\x0a/g; //匹配\n
+    if (message) {
+        mailBody = message.replace(regExp, `</p><p>`);
+    }
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport(config.mail);
 
@@ -14,8 +20,10 @@ function sendMail(subject, message) {
         from: '"Price Notify" <motorfriends@163.com>', // sender address
         to: 'qiushaoxi@163.com', // list of receivers
         subject: subject, // Subject line
-        text: 'Hello world?', // plain text body
-        html: '<b>Hello world?</b>' // html body
+        //text: 'Hello world?', // plain text body
+        html: `<h1>BTS 价格提醒:</h1>
+        <p>`+ mailBody + `</p>`
+        //html: '<b>Hello world?</b>' // html body
         //text: message
         //, // plain text body
         //html: '<b>Hello world?</b>' // html body
@@ -36,4 +44,3 @@ function sendMail(subject, message) {
 }
 
 exports.sendMail = sendMail;
-exports.flag = flag;
