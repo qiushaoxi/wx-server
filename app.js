@@ -24,6 +24,11 @@ var server = http.createServer(app).listen(80, function () { });
 console.log('start');
 server.timeout = 240000;
 
+app.get('/test', (req, res) => {
+  res.end('hello');
+});
+
+//微信验证端口
 app.get('/', (req, res) => {
   console.log('torched.');
   let signature = req.query.signature;
@@ -49,6 +54,7 @@ app.get('/', (req, res) => {
   res.end('');
 });
 
+//微信用户回复接口
 app.post('/', (req, res) => {
   console.log('POST');
   let ToUserName = req.query.openid;//  是      接收方帐号（收到的OpenID）

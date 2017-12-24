@@ -1,0 +1,17 @@
+{
+    "mail": {
+        "host": "smtp.163.com",
+        "port": 465,
+        "secure": true,
+        "auth": {
+            "user": "motorfriends",
+            "pass": "pass"
+        }
+    },
+    "mail_timeout" : 600000,
+    "interval":1000,
+    "margin":0.1,
+    "depth":10,
+    "position" : 20000,
+    "comment":"postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
+}

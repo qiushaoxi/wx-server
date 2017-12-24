@@ -1,20 +1,13 @@
 'use strict';
 const nodemailer = require('nodemailer');
+const config = require('../config.json');
 
 // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
 // nodemailer.createTestAccount((err, account) => {
-function sendMail(subject, message) {
+function _sendMail(subject, message) {
     // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: 'smtp.163.com',
-        port: 465,
-        secure: true, // true for 465, false for other ports
-        auth: {
-            user: "motorfriends", // generated ethereal user
-            pass: "bts123"  // generated ethereal password
-        }
-    });
+    let transporter = nodemailer.createTransport(config.mail);
 
     // setup email data with unicode symbols
     let mailOptions = {
@@ -41,5 +34,16 @@ function sendMail(subject, message) {
         // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
     });
 }
+
+var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。
+var sendMail = function (subject, message) {
+    if (flag) {
+        _sendMail(subject, message);
+        flag = false;
+        setTimeout(() => {
+            flag = true;
+        }, config.mail_timeout);
+    }
+}
 exports.sendMail = sendMail;
-///});
+exports.flag = flag;
