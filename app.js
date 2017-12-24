@@ -63,7 +63,7 @@ app.post('/', (req, res) => {
   let MsgType = 'text';//是     text
 
   let pairs = price.pairs;
-  let Content = price.text;
+  let Content = price.getText();
 
   let tmpStr = '<xml><ToUserName><![CDATA[' + ToUserName + ']]></ToUserName><FromUserName><![CDATA[' + FromUserName + ']]></FromUserName><CreateTime>' + CreateTime + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' + Content + ']]></Content></xml>';
   console.log(tmpStr);

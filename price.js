@@ -32,14 +32,14 @@ setInterval(() => {
     //显示各市场价格
 
     //输出文字
-    let Content = "BTS 各市场价格\n";
-    Content += "==========\n";
+    let tmpText = "BTS 各市场价格\n";
+    tmpText += "==========\n";
     for (let i = 0; i < pairs.length; i++) {
         if (pairs[i].buyPrice && pairs[i].sellPrice) {
-            Content += pairs[i].market + ":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4) + '\n';
+            tmpText += pairs[i].market + ":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4) + '\n';
         }
     }
-    Content += "==========\n";
+    tmpText += "==========\n";
     //计算各市场差价
     for (let i = 0; i < pairs.length; i++) {
         let src = pairs[i];
@@ -55,20 +55,20 @@ setInterval(() => {
                 continue;
             }
             let margin = getMargin(src, des);
-            Content += (src.market + " => " + des.market + " : " + (margin*100).toFixed(2)+'%');
-            Content += '\n';
+            tmpText += (src.market + " => " + des.market + " : " + (margin * 100).toFixed(2) + '%');
+            tmpText += '\n';
             if (margin > alarmMargin) {
                 let subject = src.market + " buy: " + src.buyPrice + " , " + des.market + " sell: " + des.sellPrice;
                 mail.sendMail(subject);
             }
         }
-        Content += '----------\n';
+        tmpText += '----------\n';
     }
 
-    text = Content;
+    text = tmpText;
     console.log(text);
 
 }, interval);
 
 exports.pairs = pairs;
-exports.text = text;
+exports.getText = function () { return text };
