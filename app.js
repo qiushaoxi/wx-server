@@ -56,7 +56,7 @@ app.get('/', (req, res) => {
 
 //微信用户回复接口
 app.post('/', (req, res) => {
-  console.log('POST');
+  //console.log('POST');
   let ToUserName = req.query.openid;//  是      接收方帐号（收到的OpenID）
   let FromUserName = 'gh_5650e9dd3c1c';//是     开发者微信号
   let CreateTime = 1513926999;//Date.now()/1000; //     是      消息创建时间 （整型）
@@ -64,8 +64,8 @@ app.post('/', (req, res) => {
 
   let pairs = price.pairs;
   let Content = "BTS 各市场价格\n";
-  for(i=0;i<pairs.length;i++){
-    Content += pairs[i].market+":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4);
+  for (let i = 0; i < pairs.length; i++) {
+    Content += pairs[i].market + ":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4) + '\n';
   }
 
   let tmpStr = '<xml><ToUserName><![CDATA[' + ToUserName + ']]></ToUserName><FromUserName><![CDATA[' + FromUserName + ']]></FromUserName><CreateTime>' + CreateTime + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' + Content + ']]></Content></xml>';
