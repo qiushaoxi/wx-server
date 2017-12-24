@@ -3,12 +3,14 @@ const config = require('./config.json');
 const mail = require('./tools/mail');
 const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
+const aexMarket = require('./markets/aex');
 
 const interval = config.interval;
 const alarmMargin = config.margin;
 var zbPair = zbMarket.zbPair;
 var innerPair = btsMarket.innerPair;
-var pairs = [zbPair, innerPair];
+var aexPair = aexMarket.aexPair;
+var pairs = [zbPair, innerPair, aexPair];
 
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
@@ -52,5 +54,8 @@ setInterval(() => {
                 mail.sendMail(subject);
             }
         }
+        console.log("<------------------------------------------------->");
     }
 }, interval);
+
+exports.pairs = pairs;

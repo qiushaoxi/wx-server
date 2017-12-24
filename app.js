@@ -62,14 +62,12 @@ app.post('/', (req, res) => {
   let CreateTime = 1513926999;//Date.now()/1000; //     是      消息创建时间 （整型）
   let MsgType = 'text';//是     text
 
-  let zbPair = price.zbPair;
-  let innerPair = price.innerPair;
+  let pairs = price.pairs;
+  let Content = "BTS 各市场价格\n";
+  for(i=0;i<pairs.length;i++){
+    Content += pairs[i].market+":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4);
+  }
 
-  let Content = "ZB:\nbuy:" + zbPair.buyPrice.toFixed(4) + "sell:" + zbPair.sellPrice.toFixed(4);
-  Content += "Bitshares:\nbuy:" + innerPair.buyPrice.toFixed(4) + "sell" + innerPair.sellPrice.toFixed(4);
-
-
-  //let Content = 'hello';      //是    回复的消息内容（换行：在content中能够换行，微信客户端就支持换行显示）
   let tmpStr = '<xml><ToUserName><![CDATA[' + ToUserName + ']]></ToUserName><FromUserName><![CDATA[' + FromUserName + ']]></FromUserName><CreateTime>' + CreateTime + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' + Content + ']]></Content></xml>';
   console.log(tmpStr);
   res.writeHead(200, { 'Content-Type': 'text/plain' });
