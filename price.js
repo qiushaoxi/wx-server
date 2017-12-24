@@ -1,16 +1,21 @@
 const superagent = require('superagent');
 const config = require('./config.json');
 const mail = require('./tools/mail');
+//markets
 const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
-
-const interval = config.interval;
-const alarmMargin = config.margin;
+const bigOneMarket = require('./markets/bigone');
 var zbPair = zbMarket.zbPair;
 var innerPair = btsMarket.innerPair;
 var aexPair = aexMarket.aexPair;
-var pairs = [zbPair, innerPair, aexPair];
+var bigOnePair = bigOneMarket.bigOnePair;
+
+var pairs = [zbPair, innerPair, aexPair, bigOnePair];
+var text = '';//微信文字
+
+const interval = config.interval;
+const alarmMargin = config.margin;
 
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
@@ -25,14 +30,16 @@ setInterval(() => {
     console.log("<=======================================================>");
     console.log("Mail Flag:", mail.flag);
     //显示各市场价格
+
+    //输出文字
+    let Content = "BTS 各市场价格\n";
+    Content += "==========\n";
     for (let i = 0; i < pairs.length; i++) {
-        pair = pairs[i];
-        if (pair.buyPrice && pair.sellPrice) {
-            console.log(pair.market);
-            console.log("buy:", pair.buyPrice.toFixed(4), "sell", pair.sellPrice.toFixed(4));
+        if (pairs[i].buyPrice && pairs[i].sellPrice) {
+            Content += pairs[i].market + ":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4) + '\n';
         }
     }
-    console.log("<------------------------------------------------->");
+    Content += "==========\n";
     //计算各市场差价
     for (let i = 0; i < pairs.length; i++) {
         let src = pairs[i];
@@ -48,14 +55,20 @@ setInterval(() => {
                 continue;
             }
             let margin = getMargin(src, des);
-            console.log(src.market + " => " + des.market + " : " + margin);
+            Content += (src.market + " => " + des.market + " : " + (margin*100).toFixed(2)+'%');
+            Content += '\n';
             if (margin > alarmMargin) {
                 let subject = src.market + " buy: " + src.buyPrice + " , " + des.market + " sell: " + des.sellPrice;
                 mail.sendMail(subject);
             }
         }
-        console.log("<------------------------------------------------->");
+        Content += '----------\n';
     }
+
+    text = Content;
+    console.log(text);
+
 }, interval);
 
 exports.pairs = pairs;
+exports.text = text;

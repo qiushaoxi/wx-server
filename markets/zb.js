@@ -44,7 +44,7 @@ function zbCall() {
             }
             // res.text 包含未解析前的响应内容
             //console.log(res.text);
-            zbDepth = JSON.parse(res.text);
+            let zbDepth = JSON.parse(res.text);
             let middlePrice = (zbDepth.asks[0][0] + zbDepth.bids[0][0]) / 2;
             let btsPosition = position / middlePrice;
             let buyPrice = zbAveragePrice(zbDepth.asks, depthSize, btsPosition);

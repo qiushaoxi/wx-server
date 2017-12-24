@@ -63,10 +63,7 @@ app.post('/', (req, res) => {
   let MsgType = 'text';//是     text
 
   let pairs = price.pairs;
-  let Content = "BTS 各市场价格\n";
-  for (let i = 0; i < pairs.length; i++) {
-    Content += pairs[i].market + ":\nbuy : " + pairs[i].buyPrice.toFixed(4) + " sell: " + pairs[i].sellPrice.toFixed(4) + '\n';
-  }
+  let Content = price.text;
 
   let tmpStr = '<xml><ToUserName><![CDATA[' + ToUserName + ']]></ToUserName><FromUserName><![CDATA[' + FromUserName + ']]></FromUserName><CreateTime>' + CreateTime + '</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' + Content + ']]></Content></xml>';
   console.log(tmpStr);
