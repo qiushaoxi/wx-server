@@ -1,6 +1,8 @@
 const superagent = require('superagent');
 const config = require('./config.json');
 const mail = require('./tools/mail');
+const sms = require('./tools/sms');
+
 //markets
 const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
@@ -60,6 +62,7 @@ setInterval(() => {
             if (margin > alarmMargin) {
                 let subject = src.market + " buy: " + src.buyPrice + " , " + des.market + " sell: " + des.sellPrice;
                 mail.sendMail(subject);
+                sms.sendSMS();
             }
         }
         tmpText += '----------\n';

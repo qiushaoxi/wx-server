@@ -8,10 +8,18 @@
             "pass": "pass"
         }
     },
-    "mail_timeout" : 600000,
-    "interval":1000,
-    "margin":0.1,
-    "depth":10,
-    "position" : 20000,
-    "comment":"postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
+    "wechat": {
+        "account": "gh_5650e9dd3c1c",
+        "token": "token"
+    },
+    "sms": {
+        "appKey": "17a7dae8e667faefdaf7cb085f3b0047",
+        "appSecret": "appSecret"
+    },
+    "mail_timeout": 600000,
+    "interval": 1000,
+    "margin": 0.1,
+    "depth": 10,
+    "position": 20000,
+    "comment": "postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
 }

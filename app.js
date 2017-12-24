@@ -1,10 +1,11 @@
 'use strict';
-var http = require('http');
-var express = require('express');
-var app = express();
-var _ = require('lodash');
-var crypto = require('crypto');
-var price = require('./price.js');
+const http = require('http');
+const express = require('express');
+const app = express();
+const _ = require('lodash');
+const crypto = require('crypto');
+const price = require('./price.js');
+const config = require('./config.json');
 
 /* app.options('*', cors());
 app.use(cors());
@@ -35,7 +36,7 @@ app.get('/', (req, res) => {
   let echostr = req.query.echostr;
   let timestamp = req.query.timestamp;
   let nonce = req.query.nonce;
-  let token = 'bts123';
+  let token = config.wechat.token;
   var list = [token, timestamp, nonce];
   console.log(list);
   //对数组进行ascii排序
@@ -58,7 +59,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   //console.log('POST');
   let ToUserName = req.query.openid;//  是      接收方帐号（收到的OpenID）
-  let FromUserName = 'gh_5650e9dd3c1c';//是     开发者微信号
+  let FromUserName = config.wechat.account;//是     开发者微信号
   let CreateTime = 1513926999;//Date.now()/1000; //     是      消息创建时间 （整型）
   let MsgType = 'text';//是     text
 
