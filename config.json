@@ -13,8 +13,10 @@
         "token": "token"
     },
     "sms": {
-        "appKey": "17a7dae8e667faefdaf7cb085f3b0047",
-        "appSecret": "appSecret"
+        "appid": "18504",
+        "to": "18918685093",
+        "project": "6Khm52",
+        "signature": "appkey"
     },
     "mail_timeout": 600000,
     "interval": 1000,

@@ -28,11 +28,12 @@ function getMargin(src, des) {
     return margin.toFixed(4);
 }
 
-var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。
-var sendNotification = function (subject, message) {
+var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。平台 : @var(p1)  与平台 : @var(p2) 差值 : @var(percent) % .
+var sendNotification = function (bestMargin, message) {
     if (flag) {
+        let subject = (bestMargin.srcMarket + " => " + bestMargin.desMarket + " Margin : " + (bestMargin.margin * 100).toFixed(2) + '%');
         mail.sendMail(subject, message);
-        sms.sendSMS();
+        sms.sendSMS(bestMargin.srcMarket, bestMargin.desMarket, bestMargin.margin);
         flag = false;
         setTimeout(() => {
             flag = true;
@@ -47,7 +48,11 @@ setInterval(() => {
 
     //输出文字
     let hasMargin = false;
-    let bestMargin = 0;
+    let bestMargin = {
+        "margin": 0,
+        "srcMarket": "",
+        "desMarket": ""
+    };
     let tmpText = "BTS 各市场价格\n";
     tmpText += "==========\n";
     for (let i = 0; i < pairs.length; i++) {
@@ -77,8 +82,10 @@ setInterval(() => {
             }
             if (margin > alarmMargin) {
                 hasMargin = true;
-                if (margin > bestMargin) {
-                    bestMargin = margin;
+                if (margin > bestMargin.margin) {
+                    bestMargin.margin = margin;
+                    bestMargin.srcMarket = src.market;
+                    bestMargin.desMarket = des.market
                 }
             }
         }
@@ -90,8 +97,7 @@ setInterval(() => {
 
     //如果有显著差价，提醒
     if (hasMargin) {
-        let subject = ("Margin : " + (bestMargin * 100).toFixed(2) + '%');
-        sendNotification(subject, text);
+        sendNotification(bestMargin, text);
     }
 
 }, interval);
