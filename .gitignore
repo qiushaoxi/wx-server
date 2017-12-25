@@ -60,3 +60,5 @@ typings/
 #VSCODE
 package-lock.json
 .vscode
+
+mongodb

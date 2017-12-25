@@ -37,15 +37,19 @@ function call() {
             }
             // res.text 包含未解析前的响应内容
             //console.log(res.text);
-            let depthGroup = JSON.parse(res.text).data;
-            let depthSize = depthGroup.asks.length;
-            let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
-            let btsPosition = position / middlePrice;
-            let buyPrice = averagePrice(depthGroup.asks, depthSize, btsPosition);
-            let sellPrice = averagePrice(depthGroup.bids, depthSize, btsPosition);
-            bigOnePair.buyPrice = buyPrice;
-            bigOnePair.sellPrice = sellPrice;
+            if (res) {
+                let depthGroup = JSON.parse(res.text).data;
+                let depthSize = depthGroup.asks.length;
+                let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
+                let btsPosition = position / middlePrice;
+                let buyPrice = averagePrice(depthGroup.asks, depthSize, btsPosition);
+                let sellPrice = averagePrice(depthGroup.bids, depthSize, btsPosition);
+                bigOnePair.buyPrice = buyPrice;
+                bigOnePair.sellPrice = sellPrice;
 
+                const mongoUtils = require('../tools/mongo');
+                mongoUtils.insertPair(bigOnePair);
+            }
         });
 }
 

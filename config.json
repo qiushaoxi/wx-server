@@ -18,6 +18,11 @@
         "project": "6Khm52",
         "signature": "appkey"
     },
+    "mongodb": {
+        "url": "mongodb://localhost:27017",
+        "dbName": "priceNotify",
+        "collectionName": "pairs"
+    },
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,
