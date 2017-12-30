@@ -2,6 +2,9 @@ const superagent = require('superagent');
 const config = require('./config.json');
 const mail = require('./tools/mail');
 const sms = require('./tools/sms');
+const log4js = require('log4js');
+const logger = log4js.getLogger('price');
+logger.level = config.loggerLevel;
 
 //markets
 const zbMarket = require('./markets/zb');
@@ -20,7 +23,7 @@ const interval = config.interval;
 const alarmMargin = config.margin;
 
 process.on('uncaughtException', function (err) {
-    console.log('Caught exception: ' + err);
+    logger.error('Caught exception: ' + err);
 });
 
 function getMargin(src, des) {
@@ -42,8 +45,8 @@ var sendNotification = function (bestMargin, message) {
 }
 
 setInterval(() => {
-    console.log("<=======================================================>");
-    console.log("Notification Flag:", flag);
+    logger.info("<=======================================================>");
+    logger.info("Notification Flag:", flag);
     //显示各市场价格
 
     //输出文字
@@ -93,7 +96,7 @@ setInterval(() => {
     }
 
     text = tmpText;
-    console.log(text);
+    logger.info(text);
 
     //如果有显著差价，提醒
     if (hasMargin) {

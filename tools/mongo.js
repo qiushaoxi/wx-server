@@ -1,6 +1,9 @@
 const mongodb = require('mongodb');
 const assert = require('assert');
 const config = require('../config.json');
+const log4js = require('log4js');
+const logger = log4js.getLogger('mongo');
+logger.level = config.loggerLevel;
 
 // insert into mongo
 const url = config.mongodb.url;
@@ -10,29 +13,39 @@ const collectionName = config.mongodb.collectionName;
 const insertPair = function (pair) {
     mongodb.MongoClient.connect(url, function (err, client) {
         assert.equal(null, err);
-        //console.log("Connected successfully to server");
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
 
-/*         collection.findOne({}, { "sort": [["_id", -1]] }, (function (err, docs) {
-            assert.equal(err, null);
-            console.log("Found the following records");
-            console.log(docs._id);
-        })); */
-
-        const id = new mongodb.ObjectID()//.createFromTime(Date.now());
+        const id = new mongodb.ObjectID();
 
         let newPair = pair;
         newPair._id = id;
+        newPair.timestamp = new Date(Date.now());
 
         collection.insertOne(newPair, function (err, result) {
             assert.equal(err, null);
-            //console.log("Inserted 1 documents into the collection");
             client.close();
         });
     });
 }
+
+const getPair = function (market) {
+    return new Promise((resolve, reject) => {
+        mongodb.MongoClient.connect(url, function (err, client) {
+            assert.equal(null, err);
+            const db = client.db(dbName);
+            const collection = db.collection(collectionName);
+            collection.findOne({ "market": market }, { "sort": [["_id", -1]] }, (function (err, docs) {
+                assert.equal(err, null);
+                logger.info("Found the following records");
+                logger.info(docs._id);
+                resolve(docs);
+            }));
+        });
+    });
+}
 exports.insertPair = insertPair;
+exports.getPair = getPair;
 /* 
 const insertDocuments = function (db, callback) {
     // Get the documents collection

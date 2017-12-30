@@ -23,6 +23,7 @@
         "dbName": "priceNotify",
         "collectionName": "pairs"
     },
+    "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,

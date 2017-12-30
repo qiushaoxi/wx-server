@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="siteCtrl">
+        目前时间:{{ time }}
+        <table>
+            <tr ng-repeat="pair in pairs">
+              <td>市场: {{ pair.market }}</td>
+              <td>买价：{{ pair.buyPrice.toFixed(2) }}</td>
+              <td>卖价：{{ pair.sellPrice.toFixed(2) }}</td>
+              <td>时间: {{ makeTime(pair.timestamp) }}</td>
+            </tr>
+          </table>
+
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('siteCtrl', function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.makeTime = function(timestamp){
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                $http({
+                    method: 'GET',
+                    url: 'http://localhost/watch'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+            }, 1000);
+        });
+    </script>
+
+</body>
+
+</html>

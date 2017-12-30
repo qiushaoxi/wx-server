@@ -6,6 +6,9 @@ const _ = require('lodash');
 const crypto = require('crypto');
 const price = require('./price.js');
 const config = require('./config.json');
+const mongoUtils = require('./tools/mongo');
+const fs = require('fs');
+
 
 /* app.options('*', cors());
 app.use(cors());
@@ -17,7 +20,7 @@ app.use(bodyParser.urlencoded({
 })); */
 
 app.use(function (req, res, next) {
-  console.log(req);
+  //console.log(req);
   next();
 });
 
@@ -27,6 +30,37 @@ server.timeout = 240000;
 
 app.get('/test', (req, res) => {
   res.end('hello');
+});
+
+app.get('/watch/:market', (req, res) => {
+  let market = req.params.market;
+  console.log(market);
+  mongoUtils.getPair(market)
+    .then((doc) => {
+      //为前端访问
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.json(doc);
+    })
+});
+
+app.get('/watch', (req, res) => {
+  var promises = [];
+  var list = ['ZB', 'inner', 'AEX', 'bigOne'];
+  for (let i = 0; i < list.length; i++) {
+    promises.push(mongoUtils.getPair(list[i]));
+  }
+  Promise.all(promises)
+    .then((docs) => {
+      //为前端访问
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.json(docs);
+    })
+});
+
+app.get('/page', (req, res) => {
+  fs.readFile('./pages/watch.html', (err,html) => {
+    res.send(html.toString());
+  })
 });
 
 //微信验证端口

@@ -6,7 +6,8 @@ const interval = config.interval;
 const depthSize = config.depth;
 const position = config.position;
 
-const ws = new WebSocket('wss://openledger.hk/ws');
+//const ws = new WebSocket('wss://openledger.hk/ws');
+const ws = new WebSocket('wss://bit.btsabc.org/ws');
 
 const CNY = "1.3.113";
 const BTS = "1.3.0";
