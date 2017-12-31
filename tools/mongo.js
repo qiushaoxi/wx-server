@@ -8,13 +8,14 @@ logger.level = config.loggerLevel;
 // insert into mongo
 const url = config.mongodb.url;
 const dbName = config.mongodb.dbName;
-const collectionName = config.mongodb.collectionName;
+const collectionPairs = "pairs";
+const collectionMargins = "margins";
 
 const insertPair = function (pair) {
     mongodb.MongoClient.connect(url, function (err, client) {
         assert.equal(null, err);
         const db = client.db(dbName);
-        const collection = db.collection(collectionName);
+        const collection = db.collection(collectionPairs);
 
         const id = new mongodb.ObjectID();
 
@@ -29,12 +30,36 @@ const insertPair = function (pair) {
     });
 }
 
+const insertMargin = function (srcMarket, desMarket, token, margin) {
+    mongodb.MongoClient.connect(url, function (err, client) {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        const collection = db.collection(collectionMargins);
+
+        const id = new mongodb.ObjectID();
+
+        let newObj = {
+            "_id": id,
+            "srcMarket": srcMarket,
+            "desMarket": desMarket,
+            "token": token,
+            "margin": margin,
+            "timestamp": new Date(Date.now())
+        };
+
+        collection.insertOne(newObj, function (err, result) {
+            assert.equal(err, null);
+            client.close();
+        });
+    });
+}
+
 const getPair = function (market) {
     return new Promise((resolve, reject) => {
         mongodb.MongoClient.connect(url, function (err, client) {
             assert.equal(null, err);
             const db = client.db(dbName);
-            const collection = db.collection(collectionName);
+            const collection = db.collection(collectionPairs);
             collection.findOne({ "market": market }, { "sort": [["_id", -1]] }, (function (err, docs) {
                 assert.equal(err, null);
                 logger.info("Found the following records");
@@ -44,8 +69,28 @@ const getPair = function (market) {
         });
     });
 }
+
+const getMargin = function (srcMarket, desMarket, token) {
+    return new Promise((resolve, reject) => {
+        mongodb.MongoClient.connect(url, function (err, client) {
+            assert.equal(null, err);
+            const db = client.db(dbName);
+            const collection = db.collection(collectionMargins);
+            collection.findOne({ "srcMarket": srcMarket, "desMarket": desMarket, "token": token },
+                { "sort": [["_id", -1]] }, (function (err, docs) {
+                    assert.equal(err, null);
+                    logger.info("Found margin");
+                    logger.info(docs._id);
+                    resolve(docs);
+                }));
+        });
+    });
+}
+
 exports.insertPair = insertPair;
 exports.getPair = getPair;
+exports.insertMargin = insertMargin;
+exports.getMargin = getMargin;
 /* 
 const insertDocuments = function (db, callback) {
     // Get the documents collection

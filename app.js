@@ -45,7 +45,7 @@ app.get('/watch/:market', (req, res) => {
 
 app.get('/watch', (req, res) => {
   var promises = [];
-  var list = ['ZB', 'inner', 'AEX', 'bigOne'];
+  var list = config.market.bts;
   for (let i = 0; i < list.length; i++) {
     promises.push(mongoUtils.getPair(list[i]));
   }
@@ -57,8 +57,27 @@ app.get('/watch', (req, res) => {
     })
 });
 
+app.get('/margin', (req, res) => {
+  var promises = [];
+  var list = config.market.bts;
+  for (let i = 0; i < list.length; i++) {
+    for (let j = 0; j < list.length; j++) {
+      if (i == j) {
+        continue;
+      }
+      promises.push(mongoUtils.getMargin(list[i], list[j], "BTS"));
+    }
+  }
+  Promise.all(promises)
+    .then((docs) => {
+      //为前端访问
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.json(docs);
+    })
+});
+
 app.get('/page', (req, res) => {
-  fs.readFile('./pages/watch.html', (err,html) => {
+  fs.readFile('./pages/watch.html', (err, html) => {
     res.send(html.toString());
   })
 });

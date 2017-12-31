@@ -5,6 +5,7 @@ const sms = require('./tools/sms');
 const log4js = require('log4js');
 const logger = log4js.getLogger('price');
 logger.level = config.loggerLevel;
+const mongoUtils = require('./tools/mongo');
 
 //markets
 const zbMarket = require('./markets/zb');
@@ -79,6 +80,9 @@ setInterval(() => {
                 continue;
             }
             let margin = getMargin(src, des);
+            //差价写入mongodb
+            mongoUtils.insertMargin(src.market, des.market, "BTS", margin);
+            //
             if (margin > 0) {
                 tmpText += (src.market + " => " + des.market + " : " + (margin * 100).toFixed(2) + '%');
                 tmpText += '\n';

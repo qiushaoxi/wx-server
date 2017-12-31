@@ -20,8 +20,10 @@
     },
     "mongodb": {
         "url": "mongodb://localhost:27017",
-        "dbName": "priceNotify",
-        "collectionName": "pairs"
+        "dbName": "priceNotify"
+    },
+    "market":{
+        "bts":["inner","AEX","bigOne","ZB"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
