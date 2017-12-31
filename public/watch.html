@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <title>数字货币行情监控</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <meta charset="utf-8">
     <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
@@ -46,7 +48,7 @@
                 //拿价格
                 $http({
                     method: 'GET',
-                    url: 'http://localhost/watch'
+                    url: '/watch'
                 }).then(function successCallback(response) {
                     $scope.pairs = response.data;
                     //$scope.pair = response.data;
@@ -57,7 +59,7 @@
                 //拿差价
                 $http({
                     method: 'GET',
-                    url: 'http://localhost/margin'
+                    url: '/margin'
                 }).then(function successCallback(response) {
                     $scope.margins = response.data;
                     //$scope.pair = response.data;

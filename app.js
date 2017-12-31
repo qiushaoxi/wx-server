@@ -8,6 +8,7 @@ const price = require('./price.js');
 const config = require('./config.json');
 const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
+const path = require('path');
 
 
 /* app.options('*', cors());
@@ -19,10 +20,15 @@ app.use(bodyParser.urlencoded({
   extended: false
 })); */
 
-app.use(function (req, res, next) {
+/* app.use(function (req, res, next) {
   //console.log(req);
   next();
 });
+ */
+
+ //静态资源
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 var server = http.createServer(app).listen(80, function () { });
 console.log('start');
@@ -74,12 +80,6 @@ app.get('/margin', (req, res) => {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.json(docs);
     })
-});
-
-app.get('/page', (req, res) => {
-  fs.readFile('./pages/watch.html', (err, html) => {
-    res.send(html.toString());
-  })
 });
 
 //微信验证端口
