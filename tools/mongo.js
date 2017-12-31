@@ -64,6 +64,7 @@ const getPair = function (market) {
                 assert.equal(err, null);
                 logger.info("Found the following records");
                 logger.info(docs._id);
+                client.close();
                 resolve(docs);
             }));
         });
@@ -81,6 +82,7 @@ const getMargin = function (srcMarket, desMarket, token) {
                     assert.equal(err, null);
                     logger.info("Found margin");
                     logger.info(docs._id);
+                    client.close();
                     resolve(docs);
                 }));
         });
