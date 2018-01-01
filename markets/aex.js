@@ -52,6 +52,8 @@ function call() {
             aexPair.buyPrice = buyPrice;
             aexPair.sellPrice = sellPrice;
 
+            const mongoUtils = require('../tools/mongo');
+            mongoUtils.insertPair(aexPair);
         });
 }
 

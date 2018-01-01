@@ -6,7 +6,8 @@ const interval = config.interval;
 const depthSize = config.depth;
 const position = config.position;
 
-const ws = new WebSocket('wss://openledger.hk/ws');
+//const ws = new WebSocket('wss://openledger.hk/ws');
+const ws = new WebSocket('wss://bit.btsabc.org/ws');
 
 const CNY = "1.3.113";
 const BTS = "1.3.0";
@@ -14,7 +15,7 @@ const CNY_PRECISION = 10000;
 const BTS_PRECISION = 100000;
 
 var sendMessage = { "id": 1, "method": "call", "params": [0, "get_limit_orders", [BTS, CNY, depthSize]] }
-var innerPair = new Pair('bitCNY','BTS',"inner");
+var innerPair = new Pair('bitCNY', 'BTS', "inner");
 
 ws.on('open', function open() {
     setInterval(() => {
@@ -62,6 +63,9 @@ ws.on('message', function incoming(data) {
     //console.log("buy:", buyPrice, "sell:", sellPrice);
     innerPair.buyPrice = buyPrice;
     innerPair.sellPrice = sellPrice;
+    const mongoUtils = require('../tools/mongo');
+    mongoUtils.insertPair(innerPair);
+
 });
 
 exports.innerPair = innerPair;

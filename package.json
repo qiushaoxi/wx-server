@@ -19,6 +19,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "lodash": "^4.17.4",
+    "log4js": "^2.4.1",
+    "mongodb": "^3.0.1",
     "nodemailer": "^4.4.1",
     "superagent": "^3.8.2",
     "ws": "^3.3.3"

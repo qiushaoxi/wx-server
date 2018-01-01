@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>数字货币行情监控</title>
+    <link rel="shortcut icon" href="/img/icon.png">
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+</head>
+
+<body>
+
+    <div ng-app="myApp" ng-controller="siteCtrl">
+        目前时间:{{ time }}
+        <h1>BTS</h1>
+        <table>
+            <tr ng-repeat="pair in pairs">
+                <td>市场: {{ pair.market }}</td>
+                <td>买价：{{ pair.buyPrice.toFixed(2) }}</td>
+                <td>卖价：{{ pair.sellPrice.toFixed(2) }}</td>
+                <td>时间: {{ makeTime(pair.timestamp) }}</td>
+            </tr>
+        </table>
+        <h2>差价</h2>
+        <table>
+            <tr ng-repeat="margin in margins" ng-hide="(margin.margin<0)">
+                <td> {{ margin.srcMarket }} => {{ margin.desMarket }}</td>
+                <td>差价：{{ (100*margin.margin).toFixed(2) }}%</td>
+                <td>时间: {{ makeTime(margin.timestamp) }}</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('siteCtrl', function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.margins = [];
+            $scope.makeTime = function (timestamp) {
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                //拿价格
+                $http({
+                    method: 'GET',
+                    url: '/watch'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+                //拿差价
+                $http({
+                    method: 'GET',
+                    url: '/margin'
+                }).then(function successCallback(response) {
+                    $scope.margins = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+            }, 1000);
+        });
+    </script>
+
+</body>
+
+</html>

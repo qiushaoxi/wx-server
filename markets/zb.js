@@ -51,7 +51,8 @@ function zbCall() {
             let sellPrice = zbAveragePrice(zbDepth.bids, depthSize, btsPosition);
             zbPair.buyPrice = buyPrice;
             zbPair.sellPrice = sellPrice;
-
+            const mongoUtils = require('../tools/mongo');
+            mongoUtils.insertPair(zbPair);
         });
 }
 

@@ -18,6 +18,14 @@
         "project": "6Khm52",
         "signature": "appkey"
     },
+    "mongodb": {
+        "url": "mongodb://localhost:27017",
+        "dbName": "priceNotify"
+    },
+    "market":{
+        "bts":["inner","AEX","bigOne","ZB"]
+    },
+    "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,
