@@ -1,6 +1,8 @@
 const superagent = require('superagent');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
+const common = require('../tools/common');
+const logger = common.getLogger();
 
 const interval = config.interval;
 const position = config.position;
@@ -37,23 +39,24 @@ function call() {
             "c": c
         })
         .end(function (err, res) {
-            // 抛错拦截
             if (err) {
-                //return throw Error(err);
-            }
-            // res.text 包含未解析前的响应内容
-            //console.log(res.text);
-            let depthGroup = JSON.parse(res.text);
-            let depthSize = depthGroup.asks.length;
-            let middlePrice = (depthGroup.asks[0][0] + depthGroup.bids[0][0]) / 2;
-            let btsPosition = position / middlePrice;
-            let buyPrice = averagePrice(depthGroup.asks, depthSize, btsPosition);
-            let sellPrice = averagePrice(depthGroup.bids, depthSize, btsPosition);
-            aexPair.buyPrice = buyPrice;
-            aexPair.sellPrice = sellPrice;
+                logger.error("http error :" + err);
+            } else if (res.statusCode != 200) {
+                logger.error("status code :" + res.statusCode);
+                return;
+            } else {
+                let depthGroup = JSON.parse(res.text);
+                let depthSize = depthGroup.asks.length;
+                let middlePrice = (depthGroup.asks[0][0] + depthGroup.bids[0][0]) / 2;
+                let btsPosition = position / middlePrice;
+                let buyPrice = averagePrice(depthGroup.asks, depthSize, btsPosition);
+                let sellPrice = averagePrice(depthGroup.bids, depthSize, btsPosition);
+                aexPair.buyPrice = buyPrice;
+                aexPair.sellPrice = sellPrice;
 
-            const mongoUtils = require('../tools/mongo');
-            mongoUtils.insertPair(aexPair);
+                const mongoUtils = require('../tools/mongo');
+                mongoUtils.insertPair(aexPair);
+            }
         });
 }
 

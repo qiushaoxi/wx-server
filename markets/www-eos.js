@@ -13,11 +13,13 @@ const CNY = "1.3.113";
 const BTS = "1.3.0";
 const OPEN_EOS = "1.3.1999";
 const WWW_EOS = "1.3.2402";
+const EOS_PRECISION = 1000000;
 const CNY_PRECISION = 10000;
 const BTS_PRECISION = 100000;
+const TOKEN_PRECISION = EOS_PRECISION;
 
-var sendMessage = { "id": 1, "method": "call", "params": [0, "get_limit_orders", [BTS, CNY, depthSize]] }
-var innerPair = new Pair('bitCNY', 'BTS', "inner");
+var sendMessage = { "id": 1, "method": "call", "params": [0, "get_limit_orders", [WWW_EOS, CNY, depthSize]] }
+var innerPair = new Pair('bitCNY', 'EOS', "WWW.EOS");
 
 ws.on('open', function open() {
     setInterval(() => {
@@ -29,38 +31,38 @@ ws.on('open', function open() {
 ws.on('message', function incoming(data) {
     let result = JSON.parse(data).result;
     //计算范围内均价
-    let bts_amount_total = 0;
+    let token_amount_total = 0;
     let cny_amount_total = 0;
 
     for (let i = 0; i < depthSize & cny_amount_total < position; i++) {
-        let bts_unit = result[i].sell_price.base.amount;
+        let token_unit = result[i].sell_price.base.amount;
         let cny_unit = result[i].sell_price.quote.amount;
-        let price = (cny_unit / CNY_PRECISION) / (bts_unit / BTS_PRECISION);
+        let price = (cny_unit / CNY_PRECISION) / (token_unit / TOKEN_PRECISION);
 
-        let bts_amount = result[i].for_sale / BTS_PRECISION;
-        let cny_amount = bts_amount * price;
+        let token_amount = result[i].for_sale / TOKEN_PRECISION;
+        let cny_amount = token_amount * price;
         cny_amount_total += cny_amount;
-        bts_amount_total += bts_amount;
+        token_amount_total += token_amount;
 
-        //console.log(price, '|', bts_amount, '|', cny_amount, '|', cny_amount_total);
+        //console.log(price, '|', token_amount, '|', cny_amount, '|', cny_amount_total);
     }
-    let buyPrice = cny_amount_total / bts_amount_total;
+    let buyPrice = cny_amount_total / token_amount_total;
 
-    bts_amount_total = 0;
+    token_amount_total = 0;
     cny_amount_total = 0;
     for (let i = 0; i < depthSize && cny_amount_total < position; i++) {
-        let bts_unit = result[depthSize + i].sell_price.quote.amount;
+        let token_unit = result[depthSize + i].sell_price.quote.amount;
         let cny_unit = result[depthSize + i].sell_price.base.amount;
-        let price = (cny_unit / CNY_PRECISION) / (bts_unit / BTS_PRECISION);
+        let price = (cny_unit / CNY_PRECISION) / (token_unit / TOKEN_PRECISION);
 
         let cny_amount = result[depthSize + i].for_sale / CNY_PRECISION;
-        let bts_amount = cny_amount / price;
+        let token_amount = cny_amount / price;
         cny_amount_total += cny_amount;
-        bts_amount_total += bts_amount;
+        token_amount_total += token_amount;
 
-        //console.log(cny_amount_total, '|', cny_amount, '|', bts_amount, '|', price);
+        //console.log(cny_amount_total, '|', cny_amount, '|', token_amount, '|', price);
     }
-    let sellPrice = cny_amount_total / bts_amount_total;
+    let sellPrice = cny_amount_total / token_amount_total;
     //console.log("Bitshares:");
     //console.log("buy:", buyPrice, "sell:", sellPrice);
     innerPair.buyPrice = buyPrice;

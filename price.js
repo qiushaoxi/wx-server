@@ -12,6 +12,9 @@ const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
+const openEOSMarket = require('./markets/open-eos');
+const wwwEOSMarket = require('./markets/www-eos');
+
 var zbPair = zbMarket.zbPair;
 var innerPair = btsMarket.innerPair;
 var aexPair = aexMarket.aexPair;

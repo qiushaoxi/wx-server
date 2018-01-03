@@ -4,11 +4,13 @@ const express = require('express');
 const app = express();
 const _ = require('lodash');
 const crypto = require('crypto');
-const price = require('./price.js');
 const config = require('./config.json');
 const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
 const path = require('path');
+
+const price = require('./price.js');
+const eos = require('./eos');
 
 
 /* app.options('*', cors());
@@ -26,7 +28,7 @@ app.use(bodyParser.urlencoded({
 });
  */
 
- //静态资源
+//静态资源
 app.use(express.static(path.join(__dirname, 'public')));
 
 
@@ -38,14 +40,18 @@ app.get('/test', (req, res) => {
   res.end('hello');
 });
 
-app.get('/watch/:market', (req, res) => {
-  let market = req.params.market;
-  console.log(market);
-  mongoUtils.getPair(market)
-    .then((doc) => {
+app.get('/watch/:token', (req, res) => {
+  let token = req.params.token;
+  var promises = [];
+  var list = config.market[token];
+  for (let i = 0; i < list.length; i++) {
+    promises.push(mongoUtils.getPair(list[i], token));
+  }
+  Promise.all(promises)
+    .then((docs) => {
       //为前端访问
       res.setHeader("Access-Control-Allow-Origin", "*");
-      res.json(doc);
+      res.json(docs);
     })
 });
 
@@ -72,6 +78,26 @@ app.get('/margin', (req, res) => {
         continue;
       }
       promises.push(mongoUtils.getMargin(list[i], list[j], "BTS"));
+    }
+  }
+  Promise.all(promises)
+    .then((docs) => {
+      //为前端访问
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.json(docs);
+    })
+});
+
+app.get('/margin/:token', (req, res) => {
+  let token = req.params.token;
+  var promises = [];
+  var list = config.market[token];
+  for (let i = 0; i < list.length; i++) {
+    for (let j = 0; j < list.length; j++) {
+      if (i == j) {
+        continue;
+      }
+      promises.push(mongoUtils.getMargin(list[i], list[j], token));
     }
   }
   Promise.all(promises)

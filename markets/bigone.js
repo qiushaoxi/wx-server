@@ -29,6 +29,7 @@ function averagePrice(group, depth, position) {
 }
 
 function call() {
+    //bts
     superagent.get(url)
         .end(function (err, res) {
             // 抛错拦截
@@ -49,6 +50,30 @@ function call() {
 
                 const mongoUtils = require('../tools/mongo');
                 mongoUtils.insertPair(bigOnePair);
+            }
+        });
+
+    //eos
+    const eosUrl = "https://api.big.one/markets/EOS-BNC/book";
+    let eosPair = new Pair("BitCNY", "EOS", "bigOne");
+    superagent.get(eosUrl)
+        .end(function (err, res) {
+            // 抛错拦截
+            if (err) {
+                //return throw Error(err);
+            }
+            if (res) {
+                let depthGroup = JSON.parse(res.text).data;
+                let depthSize = depthGroup.asks.length;
+                let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
+                let eosPosition = position / middlePrice;
+                let buyPrice = averagePrice(depthGroup.asks, depthSize, eosPosition);
+                let sellPrice = averagePrice(depthGroup.bids, depthSize, eosPosition);
+                eosPair.buyPrice = buyPrice;
+                eosPair.sellPrice = sellPrice;
+
+                const mongoUtils = require('../tools/mongo');
+                mongoUtils.insertPair(eosPair);
             }
         });
 }
