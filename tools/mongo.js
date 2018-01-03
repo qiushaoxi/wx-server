@@ -54,16 +54,21 @@ const insertMargin = function (srcMarket, desMarket, token, margin) {
     });
 }
 
-const getPair = function (market) {
+const getPair = function (market, quote) {
+    //兼容上版本
+    if(!quote){
+        quote = "BTS";
+    }
+    //
     return new Promise((resolve, reject) => {
         mongodb.MongoClient.connect(url, function (err, client) {
             assert.equal(null, err);
             const db = client.db(dbName);
             const collection = db.collection(collectionPairs);
-            collection.findOne({ "market": market }, { "sort": [["_id", -1]] }, (function (err, docs) {
+            collection.findOne({ "market": market, "quote": quote }, { "sort": [["_id", -1]] }, (function (err, docs) {
                 assert.equal(err, null);
                 logger.info("Found the following records");
-                logger.info(docs._id);
+                logger.info(docs);
                 client.close();
                 resolve(docs);
             }));
@@ -81,7 +86,7 @@ const getMargin = function (srcMarket, desMarket, token) {
                 { "sort": [["_id", -1]] }, (function (err, docs) {
                     assert.equal(err, null);
                     logger.info("Found margin");
-                    logger.info(docs._id);
+                    logger.info(docs);
                     client.close();
                     resolve(docs);
                 }));

@@ -23,7 +23,8 @@
         "dbName": "priceNotify"
     },
     "market":{
-        "bts":["inner","AEX","bigOne","ZB"]
+        "bts":["inner","AEX","bigOne","ZB"],
+        "EOS":["ZB","bigOne","WWW.EOS","OPEN.EOS"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
