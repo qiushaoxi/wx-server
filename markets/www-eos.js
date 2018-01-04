@@ -3,7 +3,7 @@ const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 
 const interval = config.interval;
-const depthSize = config.depth;
+var depthSize = config.depth;
 const position = config.position;
 
 //const ws = new WebSocket('wss://openledger.hk/ws');
@@ -33,6 +33,7 @@ ws.on('message', function incoming(data) {
     //计算范围内均价
     let token_amount_total = 0;
     let cny_amount_total = 0;
+    depthSize = result.length / 2;
 
     for (let i = 0; i < depthSize & cny_amount_total < position; i++) {
         let token_unit = result[i].sell_price.base.amount;

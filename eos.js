@@ -24,7 +24,7 @@ function getMargin(src, des) {
 var flag = true; //发送邮件后关闭发邮件功能，等待一段时间后开启。平台 : @var(p1)  与平台 : @var(p2) 差值 : @var(percent) % .
 var sendNotification = function (bestMargin, message) {
     if (flag) {
-        let subject = ("token:EOS " + SbestMargin.srcMarket + " => " + bestMargin.desMarket + " Margin : " + (bestMargin.margin * 100).toFixed(2) + '%');
+        let subject = ("token:EOS " + bestMargin.srcMarket + " => " + bestMargin.desMarket + " Margin : " + (bestMargin.margin * 100).toFixed(2) + '%');
         mail.sendMail(subject, message);
         sms.sendSMS(bestMargin.srcMarket, bestMargin.desMarket, bestMargin.margin);
         flag = false;
