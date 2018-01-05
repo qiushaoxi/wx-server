@@ -1,4 +1,7 @@
 {
+    "server":{
+        "port":8080
+    },
     "mail": {
         "host": "smtp.163.com",
         "port": 465,
@@ -19,7 +22,7 @@
         "signature": "appkey"
     },
     "mongodb": {
-        "url": "mongodb://localhost:27017",
+        "url": "mongodb://127.0.0.1:27017",
         "dbName": "priceNotify"
     },
     "market":{

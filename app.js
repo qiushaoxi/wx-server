@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var server = http.createServer(app).listen(80, function () { });
-console.log('start');
+var server = http.createServer(app).listen(config.server.port, function () { });
+console.log('start on:' + config.server.port);
 server.timeout = 240000;
 
 app.get('/test', (req, res) => {
