@@ -1,6 +1,8 @@
 const superagent = require('superagent');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
+const common = require('../tools/common');
+const logger = common.getLogger("bigOne");
 
 const interval = config.interval;
 const position = config.position;
@@ -32,13 +34,12 @@ function call(market, symbol) {
 
     superagent.get(url)
         .end(function (err, res) {
-            // 抛错拦截
             if (err) {
-                //return throw Error(err);
-            }
-            // res.text 包含未解析前的响应内容
-            //console.log(res.text);
-            if (res) {
+                logger.error("http error :" + err);
+            } else if (res.statusCode != 200) {
+                logger.error("status code :" + res.statusCode);
+                return;
+            } else {
                 let depthGroup = JSON.parse(res.text).data;
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
@@ -56,7 +57,7 @@ function call(market, symbol) {
 
 //轮询获取最新价格
 setInterval(() => {
-    call("BTS-BNC","BTS");
-    call("EOS-BNC","EOS");
-    call("ETH-BNC","ETH");
+    call("BTS-BNC", "BTS");
+    call("EOS-BNC", "EOS");
+    call("ETH-BNC", "ETH");
 }, interval);

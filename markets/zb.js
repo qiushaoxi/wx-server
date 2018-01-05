@@ -2,7 +2,7 @@ const superagent = require('superagent');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
-const logger = common.getLogger();
+const logger = common.getLogger("ZB");
 
 const interval = config.interval;
 const depthSize = config.depth;
