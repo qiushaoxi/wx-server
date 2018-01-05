@@ -7,10 +7,6 @@ const logger = common.getLogger();
 const interval = config.interval;
 const position = config.position;
 const url = "https://api.aex.com/depth.php";
-const mk_type = "bitcny";
-const c = "bts"
-
-var aexPair = new Pair("BitCNY", "BTS", "AEX");
 
 /**
  * 计算特定深度均价
@@ -32,11 +28,12 @@ function averagePrice(group, depth, position) {
     return average;
 }
 
-function call() {
+function call(base, target, symbol) {
+    let aexPair = new Pair("BitCNY", symbol, "AEX");
     superagent.get(url)
         .query({
-            "mk_type": mk_type,
-            "c": c
+            "mk_type": base,
+            "c": target
         })
         .end(function (err, res) {
             if (err) {
@@ -62,7 +59,6 @@ function call() {
 
 //轮询获取最新价格
 setInterval(() => {
-    call();
+    call("bitcny", "bts", "BTS");
+    call("bitcny", "eth", "ETH");
 }, interval);
-
-exports.aexPair = aexPair;

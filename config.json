@@ -26,8 +26,9 @@
         "dbName": "priceNotify"
     },
     "market":{
-        "bts":["inner","AEX","bigOne","ZB"],
-        "EOS":["ZB","bigOne","WWW.EOS","OPEN.EOS"]
+        "BTS":["inner","AEX","bigOne","ZB"],
+        "EOS":["ZB","bigOne","OPEN.EOS","WWW.EOS"],
+        "ETH":["bigOne","ZB"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,

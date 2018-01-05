@@ -4,9 +4,6 @@ const Pair = require("../lib/pair.js").Pair;
 
 const interval = config.interval;
 const position = config.position;
-const url = "https://api.big.one/markets/BTS-BNC/book";
-
-var bigOnePair = new Pair("BitCNY", "BTS", "bigOne");
 
 /**
  * 计算特定深度均价
@@ -28,8 +25,11 @@ function averagePrice(group, depth, position) {
     return average;
 }
 
-function call() {
-    //bts
+function call(market, symbol) {
+    //BTS-BNC
+    let url = "https://api.big.one/markets/" + market + "/book";
+    let bigOnePair = new Pair("BitCNY", symbol, "bigOne");
+
     superagent.get(url)
         .end(function (err, res) {
             // 抛错拦截
@@ -42,9 +42,9 @@ function call() {
                 let depthGroup = JSON.parse(res.text).data;
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
-                let btsPosition = position / middlePrice;
-                let buyPrice = averagePrice(depthGroup.asks, depthSize, btsPosition);
-                let sellPrice = averagePrice(depthGroup.bids, depthSize, btsPosition);
+                let tokenPosition = position / middlePrice;
+                let buyPrice = averagePrice(depthGroup.asks, depthSize, tokenPosition);
+                let sellPrice = averagePrice(depthGroup.bids, depthSize, tokenPosition);
                 bigOnePair.buyPrice = buyPrice;
                 bigOnePair.sellPrice = sellPrice;
 
@@ -52,35 +52,11 @@ function call() {
                 mongoUtils.insertPair(bigOnePair);
             }
         });
-
-    //eos
-    const eosUrl = "https://api.big.one/markets/EOS-BNC/book";
-    let eosPair = new Pair("BitCNY", "EOS", "bigOne");
-    superagent.get(eosUrl)
-        .end(function (err, res) {
-            // 抛错拦截
-            if (err) {
-                //return throw Error(err);
-            }
-            if (res) {
-                let depthGroup = JSON.parse(res.text).data;
-                let depthSize = depthGroup.asks.length;
-                let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
-                let eosPosition = position / middlePrice;
-                let buyPrice = averagePrice(depthGroup.asks, depthSize, eosPosition);
-                let sellPrice = averagePrice(depthGroup.bids, depthSize, eosPosition);
-                eosPair.buyPrice = buyPrice;
-                eosPair.sellPrice = sellPrice;
-
-                const mongoUtils = require('../tools/mongo');
-                mongoUtils.insertPair(eosPair);
-            }
-        });
 }
 
 //轮询获取最新价格
 setInterval(() => {
-    call();
+    call("BTS-BNC","BTS");
+    call("EOS-BNC","EOS");
+    call("ETH-BNC","ETH");
 }, interval);
-
-exports.bigOnePair = bigOnePair;

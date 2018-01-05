@@ -9,8 +9,13 @@ const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
 const path = require('path');
 
-const price = require('./price.js');
-const eos = require('./eos');
+const margin = require('./margin');
+
+//markets
+const zbMarket = require('./markets/zb');
+const btsMarket = require('./markets/bts');
+const aexMarket = require('./markets/aex');
+const bigOneMarket = require('./markets/bigone');
 
 
 /* app.options('*', cors());
@@ -46,39 +51,6 @@ app.get('/watch/:token', (req, res) => {
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
     promises.push(mongoUtils.getPair(list[i], token));
-  }
-  Promise.all(promises)
-    .then((docs) => {
-      //为前端访问
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.json(docs);
-    })
-});
-
-app.get('/watch', (req, res) => {
-  var promises = [];
-  var list = config.market.bts;
-  for (let i = 0; i < list.length; i++) {
-    promises.push(mongoUtils.getPair(list[i]));
-  }
-  Promise.all(promises)
-    .then((docs) => {
-      //为前端访问
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.json(docs);
-    })
-});
-
-app.get('/margin', (req, res) => {
-  var promises = [];
-  var list = config.market.bts;
-  for (let i = 0; i < list.length; i++) {
-    for (let j = 0; j < list.length; j++) {
-      if (i == j) {
-        continue;
-      }
-      promises.push(mongoUtils.getMargin(list[i], list[j], "BTS"));
-    }
   }
   Promise.all(promises)
     .then((docs) => {
