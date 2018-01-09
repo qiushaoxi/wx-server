@@ -9,6 +9,8 @@ const mongoUtils = require('./tools/mongo');
 const interval = config.interval;
 const alarmMargin = config.margin;
 
+var flag = true;
+
 process.on('uncaughtException', function (err) {
     logger.error('Caught exception: ' + err);
 });
@@ -19,7 +21,7 @@ function getMargin(src, des) {
 }
 
 //发送邮件后关闭发邮件功能，等待一段时间后开启。平台 : @var(p1)  与平台 : @var(p2) 差值 : @var(percent) % .
-const sendNotification = function (bestMargin, message, symbol, flag) {
+const sendNotification = function (bestMargin, message, symbol) {
     if (flag) {
         let subject = ("token:" + symbol + " " + bestMargin.srcMarket + " => " + bestMargin.desMarket + " Margin : " + (bestMargin.margin * 100).toFixed(2) + '%');
         mail.sendMail(subject, message);
@@ -33,7 +35,6 @@ const sendNotification = function (bestMargin, message, symbol, flag) {
 
 const watchMargin = function (symbol) {
 
-    let flag = true;
     let markets = config.market[symbol];
     setInterval(() => {
         //获取价格对
@@ -79,16 +80,16 @@ const watchMargin = function (symbol) {
                     }
                 }
 
-
+                //hasMargin = true;//for test
                 //如果有显著差价，提醒
                 if (hasMargin) {
-                    sendNotification(bestMargin, "text", symbol, flag);
+                    sendNotification(bestMargin, "text", symbol);
                 }
             });
 
     }, interval);
 }
 
-for(var key in config.market){
+for (var key in config.market) {
     watchMargin(key);
 }
