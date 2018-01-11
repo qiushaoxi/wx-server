@@ -8,11 +8,15 @@ const position = config.position;
 
 const url = 'wss://bit.btsabc.org/ws';
 
+//> { "id": 1, "method": "call", "params": [0, "lookup_asset_symbols",[["CNY"]]] }
 const CNY = "1.3.113";
 const BTS = "1.3.0";
 const OPEN_EOS = "1.3.1999";
 const WWW_EOS = "1.3.2402";
+const GDEX_EOS = "1.3.2635";
+const GDEX_ETH = "1.3.2598";
 const EOS_PRECISION = 1000000;
+const ETH_PRECISION = 1000000;
 const CNY_PRECISION = 10000;
 const BTS_PRECISION = 100000;
 
@@ -86,3 +90,5 @@ const call = function (base, target, precision, symbol, market) {
 call(CNY, WWW_EOS, EOS_PRECISION, "EOS", "WWW.EOS");
 call(CNY, OPEN_EOS, EOS_PRECISION, "EOS", "OPEN.EOS");
 call(CNY, BTS, BTS_PRECISION, "BTS", "inner");
+call(CNY, GDEX_EOS, EOS_PRECISION, "EOS", "GDEX.EOS");
+call(CNY, GDEX_ETH, ETH_PRECISION, "ETH", "GDEX.ETH");
