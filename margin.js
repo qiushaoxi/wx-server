@@ -40,7 +40,7 @@ const watchMargin = function (symbol) {
         //获取价格对
         let promises = [];
         for (let i = 0; i < markets.length; i++) {
-            promises.push(mongoUtils.getPair(markets[i], symbol));
+            promises.push(mongoUtils.getPair(markets[i], symbol, "BitCNY"));
         }
         Promise.all(promises)
             .then((pairs) => {

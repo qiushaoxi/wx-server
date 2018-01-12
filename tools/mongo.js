@@ -54,18 +54,22 @@ const insertMargin = function (srcMarket, desMarket, token, margin) {
     });
 }
 
-const getPair = function (market, quote) {
+const getPair = function (market, quote, base) {
     //兼容上版本
-    if(!quote){
+    if (!quote) {
         quote = "BTS";
     }
     //
+    let condition = { "market": market, "quote": quote };
+    if (base) {
+        condition.base = base;
+    }
     return new Promise((resolve, reject) => {
         mongodb.MongoClient.connect(url, function (err, client) {
             assert.equal(null, err);
             const db = client.db(dbName);
             const collection = db.collection(collectionPairs);
-            collection.findOne({ "market": market, "quote": quote }, { "sort": [["_id", -1]] }, (function (err, docs) {
+            collection.findOne(condition, { "sort": [["_id", -1]] }, (function (err, docs) {
                 assert.equal(err, null);
                 logger.info("Found the following records");
                 logger.info(docs);

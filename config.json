@@ -28,13 +28,19 @@
     "market":{
         "BTS":["inner","bigOne","ZB"],
         "EOS":["ZB","bigOne","GDEX.EOS"],
-        "ETH":["bigOne","ZB","GDEX.ETH"]
+        "ETH":["bigOne","ZB","GDEX.ETH"],
+        "BTC":["ZB","bigOne","GDEX.BTC"],
+        "BTM":["GDEX.BTM","bigOne"],
+        "QC":["ZB"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,
     "depth": 10,
-    "position": 20000,
+    "position": {
+        "BitCNY": 20000,
+        "BTC": 0.2
+    },
     "comment": "postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
 }

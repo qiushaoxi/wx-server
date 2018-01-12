@@ -9,7 +9,10 @@ const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
 const path = require('path');
 
+//后台轮询差价
 const margin = require('./margin');
+//后台拼接价格对
+const join = require('./app/join.js');
 
 //markets
 const zbMarket = require('./markets/zb');
@@ -50,7 +53,7 @@ app.get('/watch/:token', (req, res) => {
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
-    promises.push(mongoUtils.getPair(list[i], token));
+    promises.push(mongoUtils.getPair(list[i], token,"BitCNY"));
   }
   Promise.all(promises)
     .then((docs) => {

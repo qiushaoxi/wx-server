@@ -98,6 +98,21 @@
             <p>获取交易所数据，对比差价，指导板砖。</p>
         </div>
         <div ng-app="myApp">
+            <div class="row" ng-controller="BitCNY-QC">
+                <div class="col-md-3">
+                    <h1>QC/BitCNY</h1>
+                </div>
+                <div class="col-md-3">
+                    <h2>买：[{{ pairs[0].buyPrice.toFixed(5) }}]</h2>
+                </div>
+                <div class="col-md-3">
+                    <h2>卖：[{{ pairs[0].sellPrice.toFixed(5) }}]</h2>
+                </div>
+                <div class="col-md-3">
+                    <h2>时间：{{ makeTime(pair.timestamp) }}</h2>
+                </div>
+            </div>
+
             <div class="page-header">
                 <h1>BTS</h1>
             </div>
@@ -236,11 +251,127 @@
                 </div>
             </div>
 
+
+            <div class="page-header">
+                <h1>BTC</h1>
+            </div>
+            <div class="row" ng-controller="btc">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>市场</th>
+                                <th>买价</th>
+                                <th>卖价</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="pair in pairs">
+                                <td>{{ pair.market }}</td>
+                                <td>{{ pair.buyPrice.toFixed(2) }}</td>
+                                <td>{{ pair.sellPrice.toFixed(2) }}</td>
+                                <td>{{ makeTime(pair.timestamp) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>原市场</th>
+                                <th>目标市场</th>
+                                <th>利差</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="margin in margins" ng-hide="(margin.margin<0)">
+                                <td>{{ margin.srcMarket }}</td>
+                                <td>{{ margin.desMarket }}</td>
+                                <td>{{ (100*margin.margin).toFixed(2) }}%</td>
+                                <td>{{ makeTime(margin.timestamp) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="page-header">
+                    <h1>BTM</h1>
+                </div>
+                <div class="row" ng-controller="BTM">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>市场</th>
+                                    <th>买价</th>
+                                    <th>卖价</th>
+                                    <th>时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="pair in pairs">
+                                    <td>{{ pair.market }}</td>
+                                    <td>{{ pair.buyPrice.toFixed(2) }}</td>
+                                    <td>{{ pair.sellPrice.toFixed(2) }}</td>
+                                    <td>{{ makeTime(pair.timestamp) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>原市场</th>
+                                    <th>目标市场</th>
+                                    <th>利差</th>
+                                    <th>时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="margin in margins" ng-hide="(margin.margin<0)">
+                                    <td>{{ margin.srcMarket }}</td>
+                                    <td>{{ margin.desMarket }}</td>
+                                    <td>{{ (100*margin.margin).toFixed(2) }}%</td>
+                                    <td>{{ makeTime(margin.timestamp) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
         </div>
     </div>
 
     <script>
         var app = angular.module('myApp', []);
+
+        app.controller('BitCNY-QC', function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.margins = [];
+            $scope.makeTime = function (timestamp) {
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                //拿价格
+                $http({
+                    method: 'GET',
+                    url: '/watch/QC'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+            }, 1000);
+        });
 
         app.controller('bts', function ($scope, $http) {
             $scope.pairs = [];
@@ -334,6 +465,74 @@
                 $http({
                     method: 'GET',
                     url: '/margin/ETH'
+                }).then(function successCallback(response) {
+                    $scope.margins = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+            }, 1000);
+        });
+
+        app.controller('btc', function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.margins = [];
+            $scope.makeTime = function (timestamp) {
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                //拿价格
+                $http({
+                    method: 'GET',
+                    url: '/watch/BTC'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+                //拿差价
+                $http({
+                    method: 'GET',
+                    url: '/margin/BTC'
+                }).then(function successCallback(response) {
+                    $scope.margins = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+            }, 1000);
+        });
+
+        app.controller("BTM", function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.margins = [];
+            $scope.makeTime = function (timestamp) {
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                //拿价格
+                $http({
+                    method: 'GET',
+                    url: '/watch/BTM'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+                //拿差价
+                $http({
+                    method: 'GET',
+                    url: '/margin/BTM'
                 }).then(function successCallback(response) {
                     $scope.margins = response.data;
                     //$scope.pair = response.data;

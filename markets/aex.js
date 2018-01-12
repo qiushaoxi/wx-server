@@ -5,7 +5,7 @@ const common = require('../tools/common');
 const logger = common.getLogger("aex");
 
 const interval = config.interval;
-const position = config.position;
+const position = config.position.BitCNY;
 const url = "https://api.aex.com/depth.php";
 
 /**

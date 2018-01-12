@@ -1,12 +1,13 @@
 const superagent = require('superagent');
 const config = require("../config.json");
-const Pair = require("../lib/pair.js").Pair;
+const pair = require("../lib/pair.js");
+const Pair = pair.Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("ZB");
 
 const interval = config.interval;
 const depthSize = config.depth;
-const position = config.position;
+const position = config.position.BitCNY;
 const zbUrl = "http://api.zb.com/data/v1/depth";
 
 /**
@@ -53,6 +54,9 @@ function zbCall(market, symbol) {
                 zbPair.sellPrice = sellPrice;
                 const mongoUtils = require('../tools/mongo');
                 mongoUtils.insertPair(zbPair);
+                if(symbol=="BitCNY"){
+                    mongoUtils.insertPair(pair.swap(zbPair));
+                }
             }
         });
 }
@@ -62,4 +66,6 @@ setInterval(() => {
     zbCall("bts_qc", "BTS");
     zbCall("eos_qc", "EOS");
     zbCall("eth_qc", "ETH");
+    zbCall("btc_qc", "BTC");
+    zbCall("bitcny_qc", "BitCNY");
 }, interval);
