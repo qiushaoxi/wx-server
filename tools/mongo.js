@@ -54,6 +54,12 @@ const insertMargin = function (srcMarket, desMarket, token, margin) {
     });
 }
 
+/**
+ * 获得报价对
+ * @param {string} market 报价市场
+ * @param {string} quote 报价目标币种
+ * @param {string} base 报价基础币种
+ */
 const getPair = function (market, quote, base) {
     //兼容上版本
     if (!quote) {

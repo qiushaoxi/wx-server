@@ -12,7 +12,7 @@ const path = require('path');
 //后台轮询差价
 const margin = require('./margin');
 //后台拼接价格对
-const join = require('./app/join.js');
+const join = require('./tools/join.js');
 
 //markets
 const zbMarket = require('./markets/zb');
