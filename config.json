@@ -36,8 +36,7 @@
     "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
-    "margin": 0.5,
-    "QCMargin": 0.1,
+    "margin": 0.1,
     "depth": 10,
     "position": {
         "BitCNY": 20000,

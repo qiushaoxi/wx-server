@@ -38,11 +38,11 @@ const watchQC = function () {
         mongoUtils.getPair("ZB", "BitCNY", "QC")
             .then((pair) => {
                 let margin = pair.sellPrice - 1;
-                if (margin > config.QCMargin) {
+                if (margin > config.margin) {
                     sendNotification(margin, "QC有差价", "QC");
                 }
                 margin = 1 - pair.buyPrice;
-                if (margin > config.QCMargin) {
+                if (margin > config.margin) {
                     sendNotification(margin, "QC有差价", "QC");
                 }
             });

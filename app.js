@@ -19,7 +19,7 @@ const join = require('./tools/join.js');
 //markets
 const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
-const aexMarket = require('./markets/aex');
+//const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
 const poloniexMarket = require('./markets/poloniex');
 
@@ -68,7 +68,7 @@ app.get('/watch/:token', (req, res) => {
 
 app.get('/margin/:token', (req, res) => {
   let token = req.params.token;
-  logger.info(token);
+  logger.debug(token);
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
