@@ -1,6 +1,6 @@
 {
     "server":{
-        "port":8080
+        "port":5000
     },
     "mail": {
         "host": "smtp.163.com",
@@ -23,20 +23,21 @@
     },
     "mongodb": {
         "url": "mongodb://127.0.0.1:27017",
-        "dbName": "priceNotify"
+        "dbName": "priceNotify",
+        "restartConnection": 200
     },
     "market":{
-        "BTS":["inner","bigOne","ZB"],
+        "BTS":["inner","bigOne","ZB","poloniex"],
         "EOS":["ZB","bigOne","GDEX.EOS"],
-        "ETH":["bigOne","ZB","GDEX.ETH"],
-        "BTC":["ZB","bigOne","GDEX.BTC"],
-        "BTM":["GDEX.BTM","bigOne"],
-        "QC":["ZB"]
+        "ETH":["bigOne","ZB","GDEX.ETH","poloniex"],
+        "QC":["ZB"],
+        "LTC":["poloniex","bigOne"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
-    "margin": 0.1,
+    "margin": 0.5,
+    "QCMargin": 0.1,
     "depth": 10,
     "position": {
         "BitCNY": 20000,

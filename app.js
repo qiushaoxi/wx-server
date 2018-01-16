@@ -8,6 +8,8 @@ const config = require('./config.json');
 const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
 const path = require('path');
+const common = require('./tools/common');
+const logger = common.getLogger('notify main');
 
 //后台轮询差价
 const margin = require('./margin');
@@ -19,6 +21,7 @@ const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
+const poloniexMarket = require('./markets/poloniex');
 
 
 /* app.options('*', cors());
@@ -53,7 +56,7 @@ app.get('/watch/:token', (req, res) => {
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
-    promises.push(mongoUtils.getPair(list[i], token,"BitCNY"));
+    promises.push(mongoUtils.getPair(list[i], token, "BitCNY"));
   }
   Promise.all(promises)
     .then((docs) => {
@@ -65,6 +68,7 @@ app.get('/watch/:token', (req, res) => {
 
 app.get('/margin/:token', (req, res) => {
   let token = req.params.token;
+  logger.info(token);
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {

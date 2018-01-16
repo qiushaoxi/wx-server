@@ -69,4 +69,5 @@ setInterval(() => {
     call("BTC-BNC", "BitCNY", "BTC");
     call("NEO-BTC", "BTC", "NEO");
     call("BTM-BTC", "BTC", "BTM");
+    call("LTC-BTC","BTC","LTC");
 }, interval);

@@ -33,6 +33,22 @@ const sendNotification = function (bestMargin, message, symbol) {
     }
 }
 
+const watchQC = function () {
+    setInterval(() => {
+        mongoUtils.getPair("ZB", "BitCNY", "QC")
+            .then((pair) => {
+                let margin = pair.sellPrice - 1;
+                if (margin > config.QCMargin) {
+                    sendNotification(margin, "QC有差价", "QC");
+                }
+                margin = 1 - pair.buyPrice;
+                if (margin > config.QCMargin) {
+                    sendNotification(margin, "QC有差价", "QC");
+                }
+            });
+    }, interval);
+}
+
 const watchMargin = function (symbol) {
 
     let markets = config.market[symbol];
@@ -93,3 +109,4 @@ const watchMargin = function (symbol) {
 for (var key in config.market) {
     watchMargin(key);
 }
+watchQC();

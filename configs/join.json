@@ -58,5 +58,78 @@
             "quote": "ETH",
             "market": "ZB"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "QC",
+            "market": "ZB"
+        },
+        {
+            "base": "QC",
+            "quote": "LTC",
+            "market": "ZB"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        }
+        ,
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "ETH",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "BTS",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "bigOne"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "bigOne"
+        }
     ]
 ]

@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
+const mongoUtils = require('../tools/mongo');
+
 
 const interval = config.interval;
 const depthSize = config.depth;
@@ -85,7 +87,6 @@ const call = function (base, target, precision, symbol, market) {
 
         innerPair.buyPrice = buyPrice;
         innerPair.sellPrice = sellPrice;
-        const mongoUtils = require('../tools/mongo');
         mongoUtils.insertPair(innerPair);
 
     });

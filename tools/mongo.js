@@ -13,7 +13,10 @@ const collectionMargins = "margins";
 
 const insertPair = function (pair) {
     mongodb.MongoClient.connect(url, function (err, client) {
-        assert.equal(null, err);
+        if (err) {
+            logger.error("mongodb error", err);
+            client.close();
+        }
         const db = client.db(dbName);
         const collection = db.collection(collectionPairs);
 
@@ -24,7 +27,10 @@ const insertPair = function (pair) {
         newPair.timestamp = new Date(Date.now());
 
         collection.insertOne(newPair, function (err, result) {
-            assert.equal(err, null);
+            if (err) {
+                logger.error("mongodb error", err);
+                client.close();
+            }
             client.close();
         });
     });
@@ -32,7 +38,10 @@ const insertPair = function (pair) {
 
 const insertMargin = function (srcMarket, desMarket, token, margin) {
     mongodb.MongoClient.connect(url, function (err, client) {
-        assert.equal(null, err);
+        if (err) {
+            logger.error("mongodb error", err);
+            client.close();
+        }
         const db = client.db(dbName);
         const collection = db.collection(collectionMargins);
 
@@ -48,7 +57,10 @@ const insertMargin = function (srcMarket, desMarket, token, margin) {
         };
 
         collection.insertOne(newObj, function (err, result) {
-            assert.equal(err, null);
+            if (err) {
+                logger.error("mongodb error", err);
+                client.close();
+            }
             client.close();
         });
     });
@@ -72,11 +84,17 @@ const getPair = function (market, quote, base) {
     }
     return new Promise((resolve, reject) => {
         mongodb.MongoClient.connect(url, function (err, client) {
-            assert.equal(null, err);
+            if (err) {
+                logger.error("mongodb error", err);
+                client.close();
+            }
             const db = client.db(dbName);
             const collection = db.collection(collectionPairs);
             collection.findOne(condition, { "sort": [["_id", -1]] }, (function (err, docs) {
-                assert.equal(err, null);
+                if (err) {
+                    logger.error("mongodb error", err);
+                    client.close();
+                }
                 logger.info("Found the following records");
                 logger.info(docs);
                 client.close();
@@ -89,12 +107,18 @@ const getPair = function (market, quote, base) {
 const getMargin = function (srcMarket, desMarket, token) {
     return new Promise((resolve, reject) => {
         mongodb.MongoClient.connect(url, function (err, client) {
-            assert.equal(null, err);
+            if (err) {
+                logger.error("mongodb error", err);
+                client.close();
+            }
             const db = client.db(dbName);
             const collection = db.collection(collectionMargins);
             collection.findOne({ "srcMarket": srcMarket, "desMarket": desMarket, "token": token },
                 { "sort": [["_id", -1]] }, (function (err, docs) {
-                    assert.equal(err, null);
+                    if (err) {
+                        logger.error("mongodb error", err);
+                        client.close();
+                    }
                     logger.info("Found margin");
                     logger.info(docs);
                     client.close();
@@ -103,6 +127,25 @@ const getMargin = function (srcMarket, desMarket, token) {
         });
     });
 }
+
+//监控mongodb连接，如果连接数太大，杀死进程由pm2重启
+setInterval(() => {
+    mongodb.MongoClient.connect(url, function (err, client) {
+        assert.equal(err, null, "mongodb连接失败");
+        const db = client.db(dbName);
+
+        let adminDb = db.admin();
+        adminDb.serverStatus()
+            .then((info) => {
+                let currentConnection = info.connections.current;
+
+                if (currentConnection > config.mongodb.restartConnection) {
+                    logger.error("mongo connection too much , restart. connection amount:", currentConnection);
+                    process.kill(process.pid);
+                }
+            });
+    });
+}, config.interval)
 
 exports.insertPair = insertPair;
 exports.getPair = getPair;
