@@ -27,15 +27,15 @@
         "restartConnection": 200
     },
     "market":{
-        "BTS":["inner","bigOne","ZB","poloniex"],
-        "EOS":["ZB","bigOne","GDEX.EOS"],
-        "ETH":["bigOne","ZB","GDEX.ETH","poloniex"],
+        "BTS":["inner","bigOne"],
+        "EOS":["bigOne","GDEX.EOS","binance"],
+        "ETH":["bigOne","GDEX.ETH","poloniex","binance"],
         "QC":["ZB"],
-        "LTC":["poloniex","bigOne"]
+        "LTC":["poloniex","bigOne","binance"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
-    "interval": 1000,
+    "interval": 2000,
     "margin": 0.1,
     "depth": 10,
     "position": {

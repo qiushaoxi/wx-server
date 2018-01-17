@@ -131,5 +131,54 @@
             "quote": "LTC",
             "market": "bigOne"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        }
+        ,
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "ETH",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "EOS",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "binance"
+        }
     ]
 ]

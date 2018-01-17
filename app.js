@@ -22,6 +22,7 @@ const btsMarket = require('./markets/bts');
 //const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
 const poloniexMarket = require('./markets/poloniex');
+const binanceMarket = require('./markets/binance');
 
 
 /* app.options('*', cors());
