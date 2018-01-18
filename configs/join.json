@@ -14,6 +14,18 @@
     [
         {
             "base": "BitCNY",
+            "quote": "BTC",
+            "market": "bigOne"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "bigOne"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
             "quote": "QC",
             "market": "ZB"
         },
@@ -166,6 +178,18 @@
         {
             "base": "ETH",
             "quote": "EOS",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "NEO",
             "market": "binance"
         }
     ],

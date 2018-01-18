@@ -298,6 +298,52 @@
                 </div>
             </div>
 
+            <div class="page-header">
+                <h1>NEO</h1>
+            </div>
+            <div class="row" ng-controller="NEO">
+                <div class="col-md-6">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>市场</th>
+                                <th>买价</th>
+                                <th>卖价</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="pair in pairs">
+                                <td>{{ pair.market }}</td>
+                                <td>{{ pair.buyPrice.toFixed(2) }}</td>
+                                <td>{{ pair.sellPrice.toFixed(2) }}</td>
+                                <td>{{ makeTime(pair.timestamp) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>原市场</th>
+                                <th>目标市场</th>
+                                <th>利差</th>
+                                <th>时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="margin in margins" ng-hide="(margin.margin<0)">
+                                <td>{{ margin.srcMarket }}</td>
+                                <td>{{ margin.desMarket }}</td>
+                                <td>{{ (100*margin.margin).toFixed(2) }}%</td>
+                                <td>{{ makeTime(margin.timestamp) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -463,7 +509,41 @@
             }, 1000);
         });
 
+        app.controller("NEO", function ($scope, $http) {
+            $scope.pairs = [];
+            $scope.margins = [];
+            $scope.makeTime = function (timestamp) {
+                return moment(timestamp).format("HH:mm:ss");
+            }
+            setInterval(() => {
+
+                $scope.time = moment().format("HH:mm:ss");
+                //拿价格
+                $http({
+                    method: 'GET',
+                    url: '/watch/NEO'
+                }).then(function successCallback(response) {
+                    $scope.pairs = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+                //拿差价
+                $http({
+                    method: 'GET',
+                    url: '/margin/NEO'
+                }).then(function successCallback(response) {
+                    $scope.margins = response.data;
+                    //$scope.pair = response.data;
+                }, function errorCallback(response) {
+                    // 请求失败执行代码
+                });
+
+            }, 1000);
+        });
     </script>
+
 </body>
 
 </html>

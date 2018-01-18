@@ -71,5 +71,6 @@ setInterval(() => {
     call("BTS", "BTC");
     call("BTS", "ETH");
     call("EOS", "ETH");
+    call("NEO", "ETH");
     call("LTC", "BTC");
 }, interval);

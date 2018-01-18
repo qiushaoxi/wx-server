@@ -68,12 +68,12 @@ const watchMargin = function (symbol) {
                 };
                 for (let i = 0; i < pairs.length; i++) {
                     let src = pairs[i];
-                    if (!src.buyPrice || !src.sellPrice) {
+                    if (!src || !src.buyPrice || !src.sellPrice) {
                         continue;
                     }
                     for (let j = 0; j < pairs.length; j++) {
                         let des = pairs[j];
-                        if (!des.buyPrice || !des.sellPrice) {
+                        if (!des || !des.buyPrice || !des.sellPrice) {
                             continue;
                         }
                         if (i == j) {

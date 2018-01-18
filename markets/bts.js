@@ -19,12 +19,15 @@ const GDEX_EOS = "1.3.2635";
 const GDEX_ETH = "1.3.2598";
 const GDEX_BTC = "1.3.2241";
 const GDEX_BTM = "1.3.2790";
+const GDEX_NEO = "1.3.2919";
 const BTM_PRECISION = 1000000;
 const EOS_PRECISION = 1000000;
 const ETH_PRECISION = 1000000;
 const CNY_PRECISION = 10000;
 const BTS_PRECISION = 100000;
 const BTC_PRECISION = 100000000;
+const NEO_PRECISION = 10000000;
+
 
 
 //call(CNY,WWW_EOS,EOS_PRECISION,"EOS","WWW.EOS")
@@ -44,6 +47,9 @@ const call = function (base, target, precision, symbol, market) {
 
     ws.on('message', function incoming(data) {
         let result = JSON.parse(data).result;
+        if (result.length == 0) {
+            return;
+        }
         //计算范围内均价
         let token_amount_total = 0;
         let cny_amount_total = 0;
@@ -99,3 +105,4 @@ call(CNY, GDEX_EOS, EOS_PRECISION, "EOS", "GDEX.EOS");
 call(CNY, GDEX_ETH, ETH_PRECISION, "ETH", "GDEX.ETH");
 call(CNY, GDEX_BTC, BTC_PRECISION, "BTC", "GDEX.BTC");
 call(CNY, GDEX_BTM, BTM_PRECISION, "BTM", "GDEX.BTM");
+call(CNY, GDEX_NEO, NEO_PRECISION, "NEO", "GDEX.NEO");
