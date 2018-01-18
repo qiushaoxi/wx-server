@@ -109,4 +109,4 @@ const watchMargin = function (symbol) {
 for (var key in config.market) {
     watchMargin(key);
 }
-watchQC();
+//watchQC();
