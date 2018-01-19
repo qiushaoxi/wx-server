@@ -10,6 +10,7 @@ const fs = require('fs');
 const path = require('path');
 const common = require('./tools/common');
 const logger = common.getLogger('notify main');
+const front = require('./front/javascripts/index');
 
 //后台轮询差价
 const margin = require('./margin');
@@ -17,9 +18,9 @@ const margin = require('./margin');
 const join = require('./tools/join.js');
 
 //markets
-const zbMarket = require('./markets/zb');
+//const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
-//const aexMarket = require('./markets/aex');
+const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
 const poloniexMarket = require('./markets/poloniex');
 const binanceMarket = require('./markets/binance');
@@ -41,7 +42,11 @@ app.use(bodyParser.urlencoded({
  */
 
 //静态资源
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'front')));
+app.use('/watch', front);
+// view engine setup
+app.set('views', path.join(__dirname, 'front/views'));
+app.set('view engine', 'jade');
 
 
 var server = http.createServer(app).listen(config.server.port, function () { });

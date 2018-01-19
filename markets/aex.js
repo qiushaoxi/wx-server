@@ -62,4 +62,7 @@ function call(base, target, symbol) {
 setInterval(() => {
     call("bitcny", "bts", "BTS");
     call("bitcny", "eth", "ETH");
+    call("bitcny", "ltc", "LTC");
+    call("bitcny", "xrp", "XRP");
+    call("bitcny", "btc", "BTC");
 }, interval);

@@ -73,4 +73,5 @@ setInterval(() => {
     call("EOS", "ETH");
     call("NEO", "ETH");
     call("LTC", "BTC");
+    call("XRP", "ETH");
 }, interval);

@@ -189,6 +189,18 @@
         },
         {
             "base": "ETH",
+            "quote": "XRP",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
             "quote": "NEO",
             "market": "binance"
         }
