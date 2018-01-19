@@ -18,7 +18,7 @@ const margin = require('./margin');
 const join = require('./tools/join.js');
 
 //markets
-//const zbMarket = require('./markets/zb');
+const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');

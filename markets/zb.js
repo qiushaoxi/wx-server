@@ -64,10 +64,10 @@ function zbCall(market, symbol) {
 
 //轮询获取最新价格
 setInterval(() => {
-    zbCall("bts_qc", "BTS");
-    zbCall("eos_qc", "EOS");
-    zbCall("eth_qc", "ETH");
-    zbCall("btc_qc", "BTC");
-    zbCall("ltc_qc", "LTC");
+    //zbCall("bts_qc", "BTS");
+    //zbCall("eos_qc", "EOS");
+    //zbCall("eth_qc", "ETH");
+    //zbCall("btc_qc", "BTC");
+    //zbCall("ltc_qc", "LTC");
     zbCall("bitcny_qc", "BitCNY");
 }, interval);
