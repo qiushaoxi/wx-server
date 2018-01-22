@@ -1,0 +1,14 @@
+[
+    {
+        "name": "web",
+        "instances": "max",
+        "exec_mode": "cluster",
+        "script": "/root/app/wx-server/app.js",
+        "max_memory_restart": "300M"
+    },
+    {
+        "name": "fetch",
+        "script": "/root/app/wx-server/fetch.js",
+        "max_memory_restart": "300M"
+    }
+]

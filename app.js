@@ -12,7 +12,7 @@ const common = require('./tools/common');
 const logger = common.getLogger('notify main');
 const front = require('./front/javascripts/index');
 
-//后台轮询差价
+/* //后台轮询差价
 const margin = require('./margin');
 //后台拼接价格对
 const join = require('./tools/join.js');
@@ -23,7 +23,7 @@ const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
 const poloniexMarket = require('./markets/poloniex');
-const binanceMarket = require('./markets/binance');
+const binanceMarket = require('./markets/binance'); */
 
 
 /* app.options('*', cors());
