@@ -8,7 +8,7 @@ const interval = config.interval;
 const depthSize = config.depth;
 const position = config.position.BitCNY;
 
-const url = 'wss://bit.btsabc.org/ws';
+const url = 'wss://bitshares-api.wancloud.io/ws'; //wss://bit.btsabc.org/ws';
 
 //> { "id": 1, "method": "call", "params": [0, "lookup_asset_symbols",[["CNY"]]] }
 const CNY = "1.3.113";
@@ -20,6 +20,8 @@ const GDEX_ETH = "1.3.2598";
 const GDEX_BTC = "1.3.2241";
 const GDEX_BTM = "1.3.2790";
 const GDEX_NEO = "1.3.2919";
+const YOYOW = "1.3.1093";
+const YOYOW_PRECISION = 100000;
 const BTM_PRECISION = 1000000;
 const EOS_PRECISION = 1000000;
 const ETH_PRECISION = 1000000;
@@ -106,3 +108,4 @@ call(CNY, GDEX_ETH, ETH_PRECISION, "ETH", "GDEX.ETH");
 call(CNY, GDEX_BTC, BTC_PRECISION, "BTC", "GDEX.BTC");
 call(CNY, GDEX_BTM, BTM_PRECISION, "BTM", "GDEX.BTM");
 call(CNY, GDEX_NEO, NEO_PRECISION, "NEO", "GDEX.NEO");
+call(CNY, YOYOW, YOYOW_PRECISION, "YOYO", "inner");

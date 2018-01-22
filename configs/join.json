@@ -141,6 +141,42 @@
         },
         {
             "base": "ETH",
+            "quote": "GXS",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "QTUM",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "YOYO",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
             "quote": "NEO",
             "market": "binance"
         }

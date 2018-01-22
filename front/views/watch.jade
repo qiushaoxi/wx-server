@@ -31,7 +31,7 @@ block content
             h2 卖：[{{ pairs[0].sellPrice.toFixed(5) }}]
           .col-md-3
             h2 时间：{{makeTime(pair.timestamp)}}
-        - var tokens = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "BTC"]
+        - var tokens = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "BTC", "GXS", "QTUM"]
         each token in tokens
           .row(ng-controller="#{token}")
             //li #{token}: #{i}
@@ -61,7 +61,7 @@ block content
                         th 利差
                         th 时间
                     tbody
-                      tr(ng-repeat="margin in margins" ng-hide="(margin.margin<0)")
+                      tr(ng-repeat="margin in margins track by $index" ng-hide="(margin.margin<0)")
                         td {{ margin.srcMarket }}
                         td {{ margin.desMarket }}
                         td {{ (100*margin.margin).toFixed(2) }}%

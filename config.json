@@ -31,10 +31,12 @@
         "EOS":["bigOne","GDEX.EOS","binance"],
         "ETH":["bigOne","GDEX.ETH","poloniex","binance"],
         "QC":["ZB"],
-        "LTC":["poloniex","bigOne","binance","AEX"],
+        "LTC":["poloniex","bigOne","binance"],
         "NEO":["binance","bigOne","GDEX.NEO"],
-        "XRP":["AEX","binance"],
-        "BTC":["binance","bigOne","poloniex","AEX","GDEX.BTC"]
+        "XRP":["binance"],
+        "BTC":["binance","bigOne","poloniex","GDEX.BTC"],
+        "GXS":["binance","bigOne"],
+        "QTUM":["binance","bigOne"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,

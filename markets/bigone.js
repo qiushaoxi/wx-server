@@ -67,6 +67,8 @@ setInterval(() => {
     call("EOS-BNC", "BitCNY", "EOS");
     call("ETH-BNC", "BitCNY", "ETH");
     call("BTC-BNC", "BitCNY", "BTC");
+    call("GXS-BNC", "BitCNY", "GXS");
+    call("QTUM-BNC", "BitCNY", "QTUM");
     call("NEO-BTC", "BTC", "NEO");
     call("BTM-BTC", "BTC", "BTM");
     call("LTC-BTC","BTC","LTC");
