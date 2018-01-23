@@ -47,5 +47,9 @@
         "BitCNY": 20000,
         "BTC": 0.2
     },
+    "binance": {
+        "apiKey": "apiKey",
+        "secret": "secret"
+    },
     "comment": "postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
 }
