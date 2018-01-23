@@ -1,0 +1,196 @@
+[
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "bigOne"
+        },
+        {
+            "base": "BTC",
+            "quote": "BTM",
+            "market": "bigOne"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "bigOne"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "bigOne"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        }
+        ,
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "ETH",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "BTS",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "poloniex"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "bigOne"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "bigOne"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        }
+        ,
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "ETH",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "EOS",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "XRP",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "GXS",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "QTUM",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "YOYO",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "NEO",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "binance"
+        }
+    ]
+]

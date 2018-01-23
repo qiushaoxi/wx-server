@@ -8,14 +8,22 @@ const config = require('./config.json');
 const mongoUtils = require('./tools/mongo');
 const fs = require('fs');
 const path = require('path');
+const common = require('./tools/common');
+const logger = common.getLogger('notify main');
+const front = require('./front/javascripts/index');
 
+/* //后台轮询差价
 const margin = require('./margin');
+//后台拼接价格对
+const join = require('./tools/join.js');
 
 //markets
 const zbMarket = require('./markets/zb');
 const btsMarket = require('./markets/bts');
 const aexMarket = require('./markets/aex');
 const bigOneMarket = require('./markets/bigone');
+const poloniexMarket = require('./markets/poloniex');
+const binanceMarket = require('./markets/binance'); */
 
 
 /* app.options('*', cors());
@@ -34,7 +42,11 @@ app.use(bodyParser.urlencoded({
  */
 
 //静态资源
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'front')));
+app.use('/watch', front);
+// view engine setup
+app.set('views', path.join(__dirname, 'front/views'));
+app.set('view engine', 'jade');
 
 
 var server = http.createServer(app).listen(config.server.port, function () { });
@@ -50,7 +62,7 @@ app.get('/watch/:token', (req, res) => {
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
-    promises.push(mongoUtils.getPair(list[i], token));
+    promises.push(mongoUtils.getPair(list[i], token, "BitCNY"));
   }
   Promise.all(promises)
     .then((docs) => {
@@ -62,6 +74,7 @@ app.get('/watch/:token', (req, res) => {
 
 app.get('/margin/:token', (req, res) => {
   let token = req.params.token;
+  logger.debug(token);
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {

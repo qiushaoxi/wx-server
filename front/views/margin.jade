@@ -1,0 +1,41 @@
+extends layout
+
+block scripts
+  script(src='/javascripts/watch.js')
+block content
+  div
+    nav(class="navbar navbar-inverse navbar-fixed-top")
+        .container
+          .navbar-header
+            button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+              span(class="sr-only") Toggle navigation
+              span(class="icon-bar") BitCNY
+              span(class="icon-bar") USDT
+            a(class="navbar-brand" href="#") 数字货币行情监控
+    br
+    br
+    br
+    br
+    div(class="container theme-showcase" role="main")
+      div(ng-app="myApp")
+        .page-header
+          h1 差价
+        table.table
+          thead
+            tr
+              th 币种
+              th 原市场
+              th 目标市场
+              th 利差
+              th 时间            
+                  
+        - var tokens = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "BTC", "GXS", "QTUM"]
+        each token in tokens
+          table.table(ng-controller="#{token}")
+            tbody
+              tr(ng-repeat="margin in margins" ng-hide="(margin.margin<0)")
+                td #{token}
+                td {{ margin.srcMarket }}
+                td {{ margin.desMarket }}
+                td {{ (100*margin.margin).toFixed(2) }}%
+                td {{ makeTime(margin.timestamp) }}

@@ -33,6 +33,22 @@ const sendNotification = function (bestMargin, message, symbol) {
     }
 }
 
+const watchQC = function () {
+    setInterval(() => {
+        mongoUtils.getPair("ZB", "BitCNY", "QC")
+            .then((pair) => {
+                let margin = pair.sellPrice - 1;
+                if (margin > config.margin) {
+                    sendNotification(margin, "QC有差价", "QC");
+                }
+                margin = 1 - pair.buyPrice;
+                if (margin > config.margin) {
+                    sendNotification(margin, "QC有差价", "QC");
+                }
+            });
+    }, interval);
+}
+
 const watchMargin = function (symbol) {
 
     let markets = config.market[symbol];
@@ -40,7 +56,7 @@ const watchMargin = function (symbol) {
         //获取价格对
         let promises = [];
         for (let i = 0; i < markets.length; i++) {
-            promises.push(mongoUtils.getPair(markets[i], symbol));
+            promises.push(mongoUtils.getPair(markets[i], symbol, "BitCNY"));
         }
         Promise.all(promises)
             .then((pairs) => {
@@ -52,12 +68,12 @@ const watchMargin = function (symbol) {
                 };
                 for (let i = 0; i < pairs.length; i++) {
                     let src = pairs[i];
-                    if (!src.buyPrice || !src.sellPrice) {
+                    if (!src || !src.buyPrice || !src.sellPrice) {
                         continue;
                     }
                     for (let j = 0; j < pairs.length; j++) {
                         let des = pairs[j];
-                        if (!des.buyPrice || !des.sellPrice) {
+                        if (!des || !des.buyPrice || !des.sellPrice) {
                             continue;
                         }
                         if (i == j) {
@@ -93,3 +109,4 @@ const watchMargin = function (symbol) {
 for (var key in config.market) {
     watchMargin(key);
 }
+//watchQC();

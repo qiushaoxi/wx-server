@@ -3,9 +3,11 @@ const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("bigOne");
+const mongoUtils = require('../tools/mongo');
 
 const interval = config.interval;
-const position = config.position;
+const position = config.position.BitCNY;
+const btcPosition = config.position.BTC;
 
 /**
  * 计算特定深度均价
@@ -27,10 +29,10 @@ function averagePrice(group, depth, position) {
     return average;
 }
 
-function call(market, symbol) {
+function call(market, base, symbol) {
     //BTS-BNC
     let url = "https://api.big.one/markets/" + market + "/book";
-    let bigOnePair = new Pair("BitCNY", symbol, "bigOne");
+    let bigOnePair = new Pair(base, symbol, "bigOne");
 
     superagent.get(url)
         .end(function (err, res) {
@@ -43,13 +45,17 @@ function call(market, symbol) {
                 let depthGroup = JSON.parse(res.text).data;
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
-                let tokenPosition = position / middlePrice;
+                let tokenPosition;
+                if (base == "BTC") {
+                    tokenPosition = btcPosition / middlePrice;
+                } else {
+                    tokenPosition = position / middlePrice;
+                }
                 let buyPrice = averagePrice(depthGroup.asks, depthSize, tokenPosition);
                 let sellPrice = averagePrice(depthGroup.bids, depthSize, tokenPosition);
                 bigOnePair.buyPrice = buyPrice;
                 bigOnePair.sellPrice = sellPrice;
 
-                const mongoUtils = require('../tools/mongo');
                 mongoUtils.insertPair(bigOnePair);
             }
         });
@@ -57,7 +63,13 @@ function call(market, symbol) {
 
 //轮询获取最新价格
 setInterval(() => {
-    call("BTS-BNC", "BTS");
-    call("EOS-BNC", "EOS");
-    call("ETH-BNC", "ETH");
+    call("BTS-BNC", "BitCNY", "BTS");
+    call("EOS-BNC", "BitCNY", "EOS");
+    call("ETH-BNC", "BitCNY", "ETH");
+    call("BTC-BNC", "BitCNY", "BTC");
+    call("GXS-BNC", "BitCNY", "GXS");
+    call("QTUM-BNC", "BitCNY", "QTUM");
+    call("NEO-BTC", "BTC", "NEO");
+    call("BTM-BTC", "BTC", "BTM");
+    call("LTC-BTC","BTC","LTC");
 }, interval);

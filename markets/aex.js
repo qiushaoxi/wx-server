@@ -3,9 +3,11 @@ const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("aex");
+const mongoUtils = require('../tools/mongo');
+
 
 const interval = config.interval;
-const position = config.position;
+const position = config.position.BitCNY;
 const url = "https://api.aex.com/depth.php";
 
 /**
@@ -51,7 +53,6 @@ function call(base, target, symbol) {
                 aexPair.buyPrice = buyPrice;
                 aexPair.sellPrice = sellPrice;
 
-                const mongoUtils = require('../tools/mongo');
                 mongoUtils.insertPair(aexPair);
             }
         });
@@ -61,4 +62,7 @@ function call(base, target, symbol) {
 setInterval(() => {
     call("bitcny", "bts", "BTS");
     call("bitcny", "eth", "ETH");
+    call("bitcny", "ltc", "LTC");
+    call("bitcny", "xrp", "XRP");
+    call("bitcny", "btc", "BTC");
 }, interval);

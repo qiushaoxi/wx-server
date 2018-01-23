@@ -1,12 +1,14 @@
 const WebSocket = require('ws');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
+const mongoUtils = require('../tools/mongo');
+
 
 const interval = config.interval;
 const depthSize = config.depth;
-const position = config.position;
+const position = config.position.BitCNY;
 
-const url = 'wss://bit.btsabc.org/ws';
+const url = 'wss://bitshares-api.wancloud.io/ws'; //wss://bit.btsabc.org/ws';
 
 //> { "id": 1, "method": "call", "params": [0, "lookup_asset_symbols",[["CNY"]]] }
 const CNY = "1.3.113";
@@ -15,10 +17,19 @@ const OPEN_EOS = "1.3.1999";
 const WWW_EOS = "1.3.2402";
 const GDEX_EOS = "1.3.2635";
 const GDEX_ETH = "1.3.2598";
+const GDEX_BTC = "1.3.2241";
+const GDEX_BTM = "1.3.2790";
+const GDEX_NEO = "1.3.2919";
+const YOYOW = "1.3.1093";
+const YOYOW_PRECISION = 100000;
+const BTM_PRECISION = 1000000;
 const EOS_PRECISION = 1000000;
 const ETH_PRECISION = 1000000;
 const CNY_PRECISION = 10000;
 const BTS_PRECISION = 100000;
+const BTC_PRECISION = 100000000;
+const NEO_PRECISION = 10000000;
+
 
 
 //call(CNY,WWW_EOS,EOS_PRECISION,"EOS","WWW.EOS")
@@ -27,7 +38,7 @@ const call = function (base, target, precision, symbol, market) {
     let ws = new WebSocket(url);
 
     let sendMessage = { "id": 1, "method": "call", "params": [0, "get_limit_orders", [target, base, depthSize]] }
-    let innerPair = new Pair('bitCNY', symbol, market);
+    let innerPair = new Pair('BitCNY', symbol, market);
 
     ws.on('open', function open() {
         setInterval(() => {
@@ -38,6 +49,9 @@ const call = function (base, target, precision, symbol, market) {
 
     ws.on('message', function incoming(data) {
         let result = JSON.parse(data).result;
+        if (result.length == 0) {
+            return;
+        }
         //计算范围内均价
         let token_amount_total = 0;
         let cny_amount_total = 0;
@@ -81,7 +95,6 @@ const call = function (base, target, precision, symbol, market) {
 
         innerPair.buyPrice = buyPrice;
         innerPair.sellPrice = sellPrice;
-        const mongoUtils = require('../tools/mongo');
         mongoUtils.insertPair(innerPair);
 
     });
@@ -92,3 +105,7 @@ call(CNY, OPEN_EOS, EOS_PRECISION, "EOS", "OPEN.EOS");
 call(CNY, BTS, BTS_PRECISION, "BTS", "inner");
 call(CNY, GDEX_EOS, EOS_PRECISION, "EOS", "GDEX.EOS");
 call(CNY, GDEX_ETH, ETH_PRECISION, "ETH", "GDEX.ETH");
+call(CNY, GDEX_BTC, BTC_PRECISION, "BTC", "GDEX.BTC");
+call(CNY, GDEX_BTM, BTM_PRECISION, "BTM", "GDEX.BTM");
+call(CNY, GDEX_NEO, NEO_PRECISION, "NEO", "GDEX.NEO");
+call(CNY, YOYOW, YOYOW_PRECISION, "YOYO", "inner");
