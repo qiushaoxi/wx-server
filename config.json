@@ -34,9 +34,9 @@
         "LTC":["poloniex","bigOne","binance"],
         "NEO":["binance","bigOne","GDEX.NEO"],
         "XRP":["binance"],
-        "BTC":["binance","bigOne","poloniex","GDEX.BTC"],
         "GXS":["binance","bigOne"],
-        "QTUM":["binance","bigOne"]
+        "QTUM":["binance","bigOne"],
+        "DASH":["binance","AEX"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,

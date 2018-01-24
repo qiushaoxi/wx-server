@@ -77,4 +77,5 @@ setInterval(() => {
     call("GXS", "ETH");
     call("QTUM", "ETH");
     call("YOYO", "ETH");
+    call("DASH", "ETH");
 }, interval);

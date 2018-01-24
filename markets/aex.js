@@ -65,4 +65,5 @@ setInterval(() => {
     call("bitcny", "ltc", "LTC");
     call("bitcny", "xrp", "XRP");
     call("bitcny", "btc", "BTC");
+    call("bitcny", "dash", "DASH");
 }, interval);

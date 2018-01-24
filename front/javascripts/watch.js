@@ -1,5 +1,5 @@
 var app = angular.module('myApp', []);
-var tokenList = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "BTC", "GXS", "QTUM"];
+var tokenList = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "GXS", "QTUM"];
 
 app.controller('BitCNY-QC', function ($scope, $http) {
     $scope.pairs = [];
