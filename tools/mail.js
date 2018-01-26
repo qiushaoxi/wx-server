@@ -9,7 +9,7 @@ function sendMail(subject, message) {
     //替换\n
     let mailBody = message;
     let regExp = /\x0a/g; //匹配\n
-    if (message) {
+    if (message && message != undefined) {
         mailBody = message.replace(regExp, `</p><p>`);
     }
     // create reusable transporter object using the default SMTP transport

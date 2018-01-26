@@ -1,3 +1,9 @@
+/**
+ * bitshare-api关闭连接问题
+ * bitshare-api获取交易成功推送问题
+ * 发送邮件失败问题
+ * 模块化问题
+ */
 const common = require('./tools/common');
 const logger = common.getLogger('robot');
 const binanceAPI = require('./tools/binance');
@@ -11,7 +17,9 @@ const triggerMargin = 0.02;
 //刷新价格时间间隔，毫秒
 const intervalGap = 500;
 //单次交易额度
-const position = 200;//CNY
+const position = 500;//CNY
+//为了成交调整价格挂单    
+const adjust = 0.02;
 
 //是否可交易，如果已经开启一个交易，那么flag=false知道交易结束
 var flag = true;
@@ -130,7 +138,7 @@ mongodbAPI.getDB()
                                                             if (innerEth < resultEthAmount) {
                                                                 resultEthAmount = innerEth;
                                                             }
-                                                            let resultCnyAmount = resultEthAmount * GDEX_ETH.sellPrice;
+                                                            let resultCnyAmount = resultEthAmount * GDEX_ETH.sellPrice * (1 - adjust);//
                                                             //console.log(resultAmount);
                                                             //内盘发起两笔交易
                                                             Promise.all([
@@ -283,7 +291,7 @@ mongodbAPI.getDB()
                                                             for (let i in fills) {
                                                                 resultEthAmount += fills[i].qty * fills[i].price;
                                                             }
-                                                            let resultCnyAmount = resultEthAmount * GDEX_ETH.buyPrice;
+                                                            let resultCnyAmount = resultEthAmount * GDEX_ETH.buyPrice * (1 + adjust);
                                                             //console.log(resultAmount);
                                                             //内盘发起两笔交易
                                                             Promise.all([
