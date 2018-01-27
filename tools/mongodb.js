@@ -10,6 +10,7 @@ const url = config.mongodb.url;
 const dbName = config.mongodb.dbName;
 const collectionPairs = "pairs";
 const collectionMargins = "margins";
+const collectionTxLog = "txlog";
 
 // Initialize connection 
 const getDB = function () {
@@ -58,6 +59,24 @@ const insertMargin = function (db, srcMarket, desMarket, token, margin) {
     });
 }
 
+const insertTxLog = function (db, txLog) {
+    return new Promise((resolve, reject) => {
+        let collection = db.collection(collectionTxLog);
+
+        txLog.timestamp = new Date(Date.now());
+
+        collection.insertOne(txLog, function (err, result) {
+            if (err) {
+                logger.error("mongodb error", err);
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+
+}
+
 /**
  * 获得报价对
  * @param {string} market 报价市场
@@ -104,4 +123,4 @@ const getMargin = function (db, srcMarket, desMarket, token) {
     });
 }
 
-module.exports = { insertPair, getPair, insertMargin, getMargin, getDB }
+module.exports = { insertPair, getPair, insertMargin, getMargin, getDB, insertTxLog }

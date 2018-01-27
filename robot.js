@@ -24,14 +24,25 @@ const adjust = 0.02;
 //是否可交易，如果已经开启一个交易，那么flag=false知道交易结束
 var flag = true;
 
-var mailFlag = true;
-const sendMail = function (subject, message) {
-    if (mailFlag) {
-        mailFlag = false;
+var errorMailFlag = true;
+const sendErrorMail = function (subject, message) {
+    if (errorMailFlag) {
+        errorMailFlag = false;
         mail.sendMail(subject, message);
         setTimeout(() => {
-            mailFlag = true;
-        }, 60 * 10 * 1000)
+            errorMailFlag = true;
+        }, 600000)
+    }
+}
+
+var notifyMailFlag = true;
+const sendNotifyMail = function (subject, message) {
+    if (notifyMailFlag) {
+        notifyMailFlag = false;
+        mail.sendMail(subject, message);
+        setTimeout(() => {
+            notifyMailFlag = true;
+        }, 600000)
     }
 }
 
@@ -46,7 +57,7 @@ setInterval(() => {
     if (!flag) {
         count++;
         if (count > 60) {
-            sendMail("flag false too long");
+            sendErrorMail("flag false too long");
             //强制设置为true，带商榷
             flag = true;
             count = 0;
@@ -190,14 +201,14 @@ mongodbAPI.getDB()
                                                                         }
                                                                         logger.info(txLog);
                                                                         flag = true;
-                                                                        sendMail("robot do a transaction", txLog);
+                                                                        mongodbAPI.insertTxLog(db, txLog);
                                                                     })
                                                                 }, 5000);
                                                             });
                                                         })
                                                 } else {
                                                     logger.error("not enable token to move");
-                                                    sendMail("not enable token to move");
+                                                    sendNotifyMail("not enable token to move");
                                                     flag = true;
                                                 }
                                             });
@@ -343,14 +354,14 @@ mongodbAPI.getDB()
                                                                         }
                                                                         logger.info(txLog);
                                                                         flag = true;
-                                                                        sendMail("robot do a transaction", txLog);
+                                                                        mongodbAPI.insertTxLog(db, txLog);
                                                                     })
                                                                 }, 5000);
                                                             });
                                                         })
                                                 } else {
                                                     logger.error("not enable token to move");
-                                                    sendMail("not enable token to move");
+                                                    sendNotifyMail("not enable token to move");
                                                     flag = true;
                                                 }
                                             });
