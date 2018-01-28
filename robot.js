@@ -1,8 +1,8 @@
 /**
  * bitshare-api关闭连接问题
  * bitshare-api获取交易成功推送问题
- * 发送邮件失败问题
  * 模块化问题
+ * 交易结果统计改进
  */
 const common = require('./tools/common');
 const logger = common.getLogger('robot');
@@ -11,15 +11,16 @@ const bitsharesAPI = require('./tools/bitshares');
 const mongodbAPI = require('./tools/mongodb');
 logger.level = "debug";
 const mail = require('./tools/mail');
+const sms = require('./tools/sms');
 
 //触发交易的利差
-const triggerMargin = 0.02;
+const triggerMargin = configure.robot.triggerMargin;
 //刷新价格时间间隔，毫秒
-const intervalGap = 500;
+const intervalGap = configure.robot.intervalGap;
 //单次交易额度
-const position = 500;//CNY
+const position = configure.robot.position;//CNY
 //为了成交调整价格挂单    
-const adjust = 0.02;
+const adjust = configure.robot.adjust;
 
 //是否可交易，如果已经开启一个交易，那么flag=false知道交易结束
 var flag = true;
@@ -40,6 +41,7 @@ const sendNotifyMail = function (subject, message) {
     if (notifyMailFlag) {
         notifyMailFlag = false;
         mail.sendMail(subject, message);
+        sms.sendSMS(subject, message, '');
         setTimeout(() => {
             notifyMailFlag = true;
         }, 600000)

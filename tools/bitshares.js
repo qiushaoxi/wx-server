@@ -10,6 +10,7 @@ const TransactionBuilder = require('bitsharesjs').TransactionBuilder;
 const common = require('./common');
 var logger = common.getLogger('bitshares-api');
 const config = require('../config.json');
+const authConfig = require('../configs/auth.json');
 logger.level = "info";
 
 const precisions = {
@@ -21,8 +22,8 @@ const precisions = {
 }
 
 const wss_url = "wss://bitshares-api.wancloud.io/ws";
-const account = config.bitshares.account;
-const privKey = config.bitshares.privKey;
+const account = authConfig.bitshares.account;
+const privKey = authConfig.bitshares.privKey;
 const expirationS = config.bitshares.expirationS;
 const pKey = PrivateKey.fromWif(privKey);
 

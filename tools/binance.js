@@ -3,9 +3,10 @@ const superagent = require('superagent');
 const config = require('../config.json');
 const common = require('./common');
 const logger = common.getLogger('binance-api');
+const authConfig = require('../configs/auth.json');
 
-const secret = config.binance.secret;
-const apiKey = config.binance.apiKey;
+const secret = authConfig.binance.secret;
+const apiKey = authConfig.binance.apiKey;
 
 String.prototype.addParams = function (name, value) {
     return this + "&" + name + "=" + value;
