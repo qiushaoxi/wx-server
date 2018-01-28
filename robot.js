@@ -12,15 +12,16 @@ const mongodbAPI = require('./tools/mongodb');
 logger.level = "debug";
 const mail = require('./tools/mail');
 const sms = require('./tools/sms');
+const config = require('./config.json');
 
 //触发交易的利差
-const triggerMargin = configure.robot.triggerMargin;
+const triggerMargin = config.robot.triggerMargin;
 //刷新价格时间间隔，毫秒
-const intervalGap = configure.robot.intervalGap;
+const intervalGap = config.robot.intervalGap;
 //单次交易额度
-const position = configure.robot.position;//CNY
+const position = config.robot.position;//CNY
 //为了成交调整价格挂单    
-const adjust = configure.robot.adjust;
+const adjust = config.robot.adjust;
 
 //是否可交易，如果已经开启一个交易，那么flag=false知道交易结束
 var flag = true;
