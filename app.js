@@ -67,9 +67,24 @@ app.get('/watch/:token', (req, res) => {
   }
   Promise.all(promises)
     .then((docs) => {
-      //为前端访问
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.json(docs);
+      //给出相对bts价格，方便计算搬砖数量
+      if (token != "BTS") {
+        mongoUtils.getPair("inner", "BTS", "BitCNY")
+          .then((pair) => {
+            let btsPrice = (pair.buyPrice + pair.sellPrice) / 2
+            for (let i in docs) {
+              docs[i].buyPriceByBTS = docs[i].buyPrice / btsPrice;
+              docs[i].sellPriceByBTS = docs[i].sellPrice / btsPrice;
+            }
+            //为前端访问
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.json(docs);
+          });
+      } else {
+        //为前端访问
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.json(docs);
+      }
     })
 });
 
