@@ -21,7 +21,9 @@ const intervalGap = config.robot.intervalGap;
 //单次交易额度
 const position = config.robot.position;//CNY
 //为了成交调整价格挂单    
-const adjust = config.robot.adjust;
+const basicAdjust = config.robot.adjust;
+var adjust;
+var nowMargin;
 
 //是否可交易，如果已经开启一个交易，那么flag=false知道交易结束
 var flag = true;
@@ -74,6 +76,12 @@ const doTx = function (db, diraction) {
             .then((res) => {
                 if (checkTime(res.timestamp)) {
                     if (res.margin > triggerMargin) {
+                        //动态调整adjust，出价修正比例
+                        nowMargin = res.margin;
+                        adjust = nowMargin / 2;
+                        if (adjust < basicAdjust) {
+                            adjust = basicAdjust;
+                        }
                         if (flag) {
                             //差价出现，开始执行交易
                             flag = false;
