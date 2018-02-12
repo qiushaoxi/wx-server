@@ -3,12 +3,17 @@
         "name": "web",
         "instances": "max",
         "exec_mode": "cluster",
-        "script": "/root/app/wx-server/app.js",
+        "script": "app.js",
         "max_memory_restart": "300M"
     },
     {
         "name": "fetch",
-        "script": "/root/app/wx-server/fetch.js",
+        "script": "fetch.js",
+        "max_memory_restart": "300M"
+    },
+    {
+        "name": "robot",
+        "script": "robot.js",
         "max_memory_restart": "300M"
     }
 ]

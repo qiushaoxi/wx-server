@@ -11,6 +11,7 @@ const path = require('path');
 const common = require('./tools/common');
 const logger = common.getLogger('notify main');
 const front = require('./front/javascripts/index');
+const authConfig = require('./configs/auth.json');
 
 /* //后台轮询差价
 const margin = require('./margin');
@@ -66,9 +67,24 @@ app.get('/watch/:token', (req, res) => {
   }
   Promise.all(promises)
     .then((docs) => {
-      //为前端访问
-      res.setHeader("Access-Control-Allow-Origin", "*");
-      res.json(docs);
+      //给出相对bts价格，方便计算搬砖数量
+      if (token != "BTS") {
+        mongoUtils.getPair("inner", "BTS", "BitCNY")
+          .then((pair) => {
+            let btsPrice = (pair.buyPrice + pair.sellPrice) / 2
+            for (let i in docs) {
+              docs[i].buyPriceByBTS = docs[i].buyPrice / btsPrice;
+              docs[i].sellPriceByBTS = docs[i].sellPrice / btsPrice;
+            }
+            //为前端访问
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.json(docs);
+          });
+      } else {
+        //为前端访问
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.json(docs);
+      }
     })
 });
 
@@ -100,7 +116,7 @@ app.get('/', (req, res) => {
   let echostr = req.query.echostr;
   let timestamp = req.query.timestamp;
   let nonce = req.query.nonce;
-  let token = config.wechat.token;
+  let token = authConfig.wechat.token;
   var list = [token, timestamp, nonce];
   console.log(list);
   //对数组进行ascii排序
@@ -123,7 +139,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   //console.log('POST');
   let ToUserName = req.query.openid;//  是      接收方帐号（收到的OpenID）
-  let FromUserName = config.wechat.account;//是     开发者微信号
+  let FromUserName = authConfig.wechat.account;//是     开发者微信号
   let CreateTime = 1513926999;//Date.now()/1000; //     是      消息创建时间 （整型）
   let MsgType = 'text';//是     text
 

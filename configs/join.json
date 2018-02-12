@@ -184,6 +184,18 @@
     [
         {
             "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "DASH",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
             "quote": "BTC",
             "market": "binance"
         },

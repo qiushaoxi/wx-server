@@ -1,6 +1,7 @@
 'use strict';
 const nodemailer = require('nodemailer');
 const config = require('../config.json');
+const authConfig = require('../configs/auth.json');
 
 // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
@@ -9,11 +10,13 @@ function sendMail(subject, message) {
     //替换\n
     let mailBody = message;
     let regExp = /\x0a/g; //匹配\n
-    if (message) {
+    if (message && message != undefined) {
         mailBody = message.replace(regExp, `</p><p>`);
     }
     // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport(config.mail);
+    let mailConfig = config.mail;
+    mailConfig.auth = authConfig.mail;
+    let transporter = nodemailer.createTransport(mailConfig);
 
     // setup email data with unicode symbols
     let mailOptions = {

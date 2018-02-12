@@ -5,21 +5,11 @@
     "mail": {
         "host": "smtp.163.com",
         "port": 465,
-        "secure": true,
-        "auth": {
-            "user": "motorfriends",
-            "pass": "pass"
-        }
-    },
-    "wechat": {
-        "account": "gh_5650e9dd3c1c",
-        "token": "token"
+        "secure": true
     },
     "sms": {
-        "appid": "18504",
         "to": "18918685093",
-        "project": "6Khm52",
-        "signature": "appkey"
+        "project": "6Khm52"
     },
     "mongodb": {
         "url": "mongodb://127.0.0.1:27017",
@@ -34,9 +24,9 @@
         "LTC":["poloniex","bigOne","binance"],
         "NEO":["binance","bigOne","GDEX.NEO"],
         "XRP":["binance"],
-        "BTC":["binance","bigOne","poloniex","GDEX.BTC"],
         "GXS":["binance","bigOne"],
-        "QTUM":["binance","bigOne"]
+        "QTUM":["binance","bigOne"],
+        "DASH":["binance","AEX"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
@@ -46,6 +36,16 @@
     "position": {
         "BitCNY": 20000,
         "BTC": 0.2
+    },
+    "bitshares":{
+        "expirationS":86400
+    },
+    "robot":{
+        "triggerMargin":0.02,
+        "intervalGap":500,
+        "position":2000,
+        "adjust":0.02,
+        "comment": "postion:单次自动交易金额，triggerMargin自动交易利差，position 限价单价格调整比例"
     },
     "comment": "postion:头寸，搬砖的人民币数额，depth市场报价深度，margin提醒的套利空间，interval轮询时间间隔"
 }

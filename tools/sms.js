@@ -2,12 +2,15 @@ const crypto = require('crypto');
 const config = require('../config.json');
 const superagent = require('superagent');
 const mail = require('./mail');
+const authConfig = require('../configs/auth.json');
 
 const url = "https://api.mysubmail.com/message/xsend.json";
 
 function sendSMS(srcMarket, desMarket, margin) {
     let vars = { "p1": srcMarket, "p2": desMarket, "percent": margin * 100 };
     let sms = config.sms;
+    sms.appid = authConfig.sms.appid;
+    sms.signature = authConfig.sms.signature;
     sms.vars = vars;
 
     superagent.post(url)

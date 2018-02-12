@@ -31,7 +31,7 @@ block content
             h2 卖：[{{ pairs[0].sellPrice.toFixed(5) }}]
           .col-md-3
             h2 时间：{{makeTime(pair.timestamp)}}
-        - var tokens = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "BTC", "GXS", "QTUM"]
+        - var tokens = ["BTS", "ETH", "EOS", "LTC", "NEO", "XRP", "GXS", "QTUM"]
         each token in tokens
           .row(ng-controller="#{token}")
             //li #{token}: #{i}
@@ -43,14 +43,14 @@ block content
                     thead
                       tr
                         th 市场
-                        th 买价
-                        th 卖价
+                        th 买价(CNY|BTS)
+                        th 卖价(CNY|BTS)
                         th 时间
                     tbody
                       tr(ng-repeat="pair in pairs")
                         td {{ pair.market }}
-                        td {{ pair.buyPrice.toFixed(2) }}
-                        td {{ pair.sellPrice.toFixed(2) }}
+                        td {{ pair.buyPrice.toFixed(2) }} | {{ pair.buyPriceByBTS.toFixed(2) }}
+                        td {{ pair.sellPrice.toFixed(2) }} | {{ pair.sellPriceByBTS.toFixed(2) }}
                         td {{ makeTime(pair.timestamp) }}
                 .col-md-6
                   table.table
