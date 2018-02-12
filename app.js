@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({
 
 //静态资源
 app.use(express.static(path.join(__dirname, 'front')));
-app.use('/watch', front);
+app.use('/', front);
 // view engine setup
 app.set('views', path.join(__dirname, 'front/views'));
 app.set('view engine', 'jade');
@@ -109,7 +109,7 @@ app.get('/margin/:token', (req, res) => {
     })
 });
 
-//微信验证端口
+/* //微信验证端口
 app.get('/', (req, res) => {
   console.log('torched.');
   let signature = req.query.signature;
@@ -151,3 +151,4 @@ app.post('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
   res.end(tmpStr);
 });
+ */

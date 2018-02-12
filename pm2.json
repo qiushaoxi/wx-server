@@ -10,10 +10,5 @@
         "name": "fetch",
         "script": "fetch.js",
         "max_memory_restart": "300M"
-    },
-    {
-        "name": "robot",
-        "script": "robot.js",
-        "max_memory_restart": "300M"
     }
 ]
