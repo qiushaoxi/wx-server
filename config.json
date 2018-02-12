@@ -17,7 +17,7 @@
         "restartConnection": 200
     },
     "market":{
-        "BTS":["inner","bigOne","AEX"],
+        "BTS":["inner","bigOne"],
         "EOS":["bigOne","GDEX.EOS","binance"],
         "ETH":["bigOne","GDEX.ETH","poloniex","binance"],
         "QC":["ZB"],
