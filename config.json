@@ -17,16 +17,13 @@
         "restartConnection": 200
     },
     "market":{
-        "BTS":["inner","bigOne","AEX"],
+        "BTS":["inner","bigOne"],
         "EOS":["bigOne","GDEX.EOS","binance"],
         "ETH":["bigOne","GDEX.ETH","poloniex","binance"],
         "QC":["ZB"],
-        "LTC":["poloniex","bigOne","binance"],
         "NEO":["binance","bigOne","GDEX.NEO"],
-        "XRP":["binance"],
         "GXS":["binance","bigOne"],
-        "QTUM":["binance","bigOne"],
-        "DASH":["binance","AEX"]
+        "YOYO":["binance","inner"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
