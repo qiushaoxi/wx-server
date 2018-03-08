@@ -2,6 +2,8 @@ const WebSocket = require('ws');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const mongoUtils = require('../tools/mongo');
+const common = require("../tools/common");
+const logger = common.getLogger('bts');
 
 
 const interval = config.interval;
@@ -71,6 +73,12 @@ const call = function (base, target, precision, symbol, market) {
 
         }
 
+        //如果深度不够，则放弃这个价格
+        if (cny_amount_total < position) {
+            logger.warn(market, "order depth not enough")
+            //return;
+        }
+
         let buyPrice = cny_amount_total / token_amount_total;
 
         //上面循环因为头寸退出，则计数器sellDepth还需要加
@@ -80,7 +88,7 @@ const call = function (base, target, precision, symbol, market) {
 
         token_amount_total = 0;
         cny_amount_total = 0;
-        for (let i = 0; i < depthSize && cny_amount_total < position; i++) {
+        for (let i = 0; i < depthSize && sellDepth + i < result.length && cny_amount_total < position; i++) {
             let token_unit = result[sellDepth + i].sell_price.quote.amount;
             let cny_unit = result[sellDepth + i].sell_price.base.amount;
             let price = (cny_unit / CNY_PRECISION) / (token_unit / precision);
@@ -91,6 +99,13 @@ const call = function (base, target, precision, symbol, market) {
             token_amount_total += token_amount;
 
         }
+
+        //如果深度不够，则放弃这个价格
+        if (cny_amount_total < position) {
+            logger.warn(market, "order depth not enough")
+            //return;
+        }
+
         let sellPrice = cny_amount_total / token_amount_total;
 
         innerPair.buyPrice = buyPrice;
@@ -100,12 +115,12 @@ const call = function (base, target, precision, symbol, market) {
     });
 }
 
-call(CNY, WWW_EOS, EOS_PRECISION, "EOS", "WWW.EOS");
-call(CNY, OPEN_EOS, EOS_PRECISION, "EOS", "OPEN.EOS");
+//call(CNY, WWW_EOS, EOS_PRECISION, "EOS", "WWW.EOS");
+//call(CNY, OPEN_EOS, EOS_PRECISION, "EOS", "OPEN.EOS");
 call(CNY, BTS, BTS_PRECISION, "BTS", "inner");
 call(CNY, GDEX_EOS, EOS_PRECISION, "EOS", "GDEX.EOS");
 call(CNY, GDEX_ETH, ETH_PRECISION, "ETH", "GDEX.ETH");
-call(CNY, GDEX_BTC, BTC_PRECISION, "BTC", "GDEX.BTC");
-call(CNY, GDEX_BTM, BTM_PRECISION, "BTM", "GDEX.BTM");
+//call(CNY, GDEX_BTC, BTC_PRECISION, "BTC", "GDEX.BTC");
+//call(CNY, GDEX_BTM, BTM_PRECISION, "BTM", "GDEX.BTM");
 call(CNY, GDEX_NEO, NEO_PRECISION, "NEO", "GDEX.NEO");
 call(CNY, YOYOW, YOYOW_PRECISION, "YOYO", "inner");

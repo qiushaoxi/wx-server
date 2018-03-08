@@ -13,11 +13,17 @@ var flag = true;
 
 process.on('uncaughtException', function (err) {
     logger.error('Caught exception: ' + err);
-});
+}); 
 
 function getMargin(src, des) {
     let margin = (des.sellPrice - src.buyPrice) / src.buyPrice;
     return margin.toFixed(4);
+}
+
+// 时间戳检查，检查价格有效性
+const checkTime = function (Timestamp) {
+    return !(Date.now() - Timestamp.getTime() > 5000)
+    //差5秒则无效
 }
 
 //发送邮件后关闭发邮件功能，等待一段时间后开启。平台 : @var(p1)  与平台 : @var(p2) 差值 : @var(percent) % .
@@ -68,12 +74,14 @@ const watchMargin = function (symbol) {
                 };
                 for (let i = 0; i < pairs.length; i++) {
                     let src = pairs[i];
-                    if (!src || !src.buyPrice || !src.sellPrice) {
+                    if (!src || !src.buyPrice || !src.sellPrice || !checkTime(src.timestamp)) {
+                        logger.warn(src, src.timestamp.getTime(), "src price error.");
                         continue;
                     }
                     for (let j = 0; j < pairs.length; j++) {
                         let des = pairs[j];
-                        if (!des || !des.buyPrice || !des.sellPrice) {
+                        if (!des || !des.buyPrice || !des.sellPrice || !checkTime(des.timestamp)) {
+                            logger.warn(des, des.timestamp.getTime(), "des price error.");
                             continue;
                         }
                         if (i == j) {

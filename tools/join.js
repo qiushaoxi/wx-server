@@ -4,6 +4,12 @@ const mongoUtils = require('../tools/mongo');
 const Pair = require("../lib/pair.js").Pair;
 const joinConfig = require("../configs/join.json");
 
+// 时间戳检查，检查价格有效性
+const checkTime = function (Timestamp) {
+    return !(Date.now() - Timestamp.getTime() > 5000)
+    //差5秒则无效
+}
+
 /**
  * 没有直接交易对的币种，通过中间币种计算价格
  * @param {[]} queryPairs 
@@ -24,6 +30,11 @@ function join(queryPairs) {
                 let buyPrice = 1;
                 let sellPrice = 1;
                 for (let i = 0; i < pairs.length; i++) {
+                    //如果价格时间异常，放弃
+                    if (!pairs[i] || !checkTime(pairs[i].timestamp)) {
+                        logger.error(pairs, "price timeout");
+                        return;
+                    }
                     buyPrice = buyPrice * pairs[i].buyPrice;
                     sellPrice = sellPrice * pairs[i].sellPrice;
                 }

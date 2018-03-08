@@ -29,7 +29,7 @@
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,
-    "depth": 10,
+    "depth": 50,
     "position": {
         "BitCNY": 20000,
         "BTC": 0.2
