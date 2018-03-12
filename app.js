@@ -13,20 +13,6 @@ const logger = common.getLogger('notify main');
 const front = require('./front/javascripts/index');
 const authConfig = require('./configs/auth.json');
 
-/* //后台轮询差价
-const margin = require('./margin');
-//后台拼接价格对
-const join = require('./tools/join.js');
-
-//markets
-const zbMarket = require('./markets/zb');
-const btsMarket = require('./markets/bts');
-const aexMarket = require('./markets/aex');
-const bigOneMarket = require('./markets/bigone');
-const poloniexMarket = require('./markets/poloniex');
-const binanceMarket = require('./markets/binance'); */
-
-
 /* app.options('*', cors());
 app.use(cors());
 //support parsing of application/json type post data
@@ -53,6 +39,60 @@ app.set('view engine', 'jade');
 var server = http.createServer(app).listen(config.server.port, function () { });
 console.log('start on:' + config.server.port);
 server.timeout = 240000;
+var io = require('socket.io')(server);
+
+io.on('connection', function (socket) {
+  //socket.emit('news', { hello: 'world' });
+  setInterval(() => {
+    let tokenList = ['QC', 'BTS', "ETH", "EOS", "NEO", "GXS", "YOYO"];
+    for (let i = 0; i < tokenList.length; i++) {
+      let token = tokenList[i];
+      let promises = [];
+      let list = config.market[token];
+      for (let i = 0; i < list.length; i++) {
+        promises.push(mongoUtils.getPair(list[i], token, "BitCNY"));
+      }
+      Promise.all(promises)
+        .then((docs) => {
+          //给出相对bts价格，方便计算搬砖数量
+          if (token != "BTS") {
+            mongoUtils.getPair("inner", "BTS", "BitCNY")
+              .then((pair) => {
+                let btsPrice = (pair.buyPrice + pair.sellPrice) / 2
+                for (let i in docs) {
+                  docs[i].buyPriceByBTS = docs[i].buyPrice / btsPrice;
+                  docs[i].sellPriceByBTS = docs[i].sellPrice / btsPrice;
+                }
+                socket.emit(token, docs);
+              });
+          } else {
+            socket.emit(token, docs);
+          }
+        })
+    }
+    for (let i = 0; i < tokenList.length; i++) {
+      let token = tokenList[i];
+      let promises = [];
+      let list = config.market[token];
+      for (let i = 0; i < list.length; i++) {
+        for (let j = 0; j < list.length; j++) {
+          if (i == j) {
+            continue;
+          }
+          promises.push(mongoUtils.getMargin(list[i], list[j], token));
+        }
+      }
+      Promise.all(promises)
+        .then((docs) => {
+          socket.emit('margin-' + token, docs);
+
+        })
+    }
+  }, config.interval);
+
+
+});
+
 
 app.get('/test', (req, res) => {
   res.end('hello');

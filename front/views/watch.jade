@@ -30,7 +30,7 @@ block content
           .col-md-3
             h2 卖：[{{ pairs[0].sellPrice.toFixed(5) }}]
           .col-md-3
-            h2 时间：{{makeTime(pair.timestamp)}}
+            h2 时间：{{makeTime(pairs[0].timestamp)}}
         - var tokens = ["BTS", "ETH", "EOS", "NEO", "GXS", "YOYO"]
         each token in tokens
           .row(ng-controller="#{token}")
