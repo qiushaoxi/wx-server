@@ -1,4 +1,5 @@
 const superagent = require('superagent');
+require('superagent-proxy')(superagent);
 const config = require("../config.json");
 const swap = require("../lib/pair.js").swap;
 const Pair = require("../lib/pair.js").Pair;
@@ -39,6 +40,7 @@ function call(base, quote) {
     let symbol = base + quote;
     let pair = new Pair(quote, base, "binance");
     superagent.get(url)
+        //.proxy('http://127.0.0.1:1087')//本地测试代理
         .query({
             "symbol": symbol,
             "limit": depthSize

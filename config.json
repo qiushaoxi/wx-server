@@ -18,11 +18,11 @@
     },
     "market":{
         "BTS":["inner","bigOne"],
-        "EOS":["bigOne","GDEX.EOS","binance"],
-        "ETH":["bigOne","GDEX.ETH","poloniex","binance"],
+        "EOS":["bigOne","GDEX.EOS","binance","gateio"],
+        "ETH":["bigOne","GDEX.ETH","poloniex","binance","gateio"],
         "QC":["ZB"],
-        "NEO":["binance","bigOne","GDEX.NEO"],
-        "GXS":["binance","bigOne"],
+        "NEO":["binance","bigOne","GDEX.NEO","gateio"],
+        "GXS":["binance","bigOne","gateio"],
         "YOYO":["binance","inner"]
     },
     "loggerLevel": "warn",
