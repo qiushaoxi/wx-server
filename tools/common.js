@@ -12,4 +12,20 @@ const getLogger = function (name) {
     return _logger;
 }
 
-exports.getLogger = getLogger;
+function safelyParseJSON(json) {
+    // This function cannot be optimised, it's best to
+    // keep it small!
+    let parsed
+
+    try {
+        parsed = JSON.parse(json)
+    } catch (e) {
+        // Oh well, but whatever...
+        logger.error(e);
+    }
+
+    return parsed // Could be undefined!
+}
+
+
+module.exports = { safelyParseJSON, getLogger };

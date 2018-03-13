@@ -286,5 +286,17 @@
             "quote": "GXS",
             "market": "gateio"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "GXS",
+            "market": "bit-z"
+        }
     ]
 ]

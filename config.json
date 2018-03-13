@@ -22,7 +22,7 @@
         "ETH":["bigOne","GDEX.ETH","poloniex","binance","gateio"],
         "QC":["ZB"],
         "NEO":["binance","bigOne","GDEX.NEO","gateio"],
-        "GXS":["binance","bigOne","gateio"],
+        "GXS":["binance","bigOne","gateio","bit-z"],
         "YOYO":["binance","inner"]
     },
     "loggerLevel": "warn",
@@ -32,7 +32,8 @@
     "depth": 10,
     "position": {
         "BitCNY": 10000,
-        "BTC": 0.2
+        "BTC": 0.2,
+        "ETH": 3
     },
     "bitshares":{
         "expirationS":86400

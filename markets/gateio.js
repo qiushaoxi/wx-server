@@ -46,6 +46,7 @@ const call = function (base, quote) {
                 logger.error(err, res);
             }
             if (depthGroup.result) {
+                //报价数组ask是反的
                 let middlePrice = (1 * depthGroup.asks[depthGroup.asks.length - 1][0] + 1 * depthGroup.bids[0][0]) / 2;
                 let tokenPosition = position / middlePrice;
                 let buyPrice = averagePrice(depthGroup.asks.reverse(), depthGroup.asks.length, tokenPosition);

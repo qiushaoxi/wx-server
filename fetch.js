@@ -11,3 +11,4 @@ const bigOneMarket = require('./markets/bigone');
 const poloniexMarket = require('./markets/poloniex');
 const binanceMarket = require('./markets/binance');
 const gateioMarket = require('./markets/gateio');
+const bitzMarket = require('./markets/bit-z');
