@@ -1,6 +1,6 @@
 const common = require("../tools/common");
 const logger = common.getLogger('join');
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 const Pair = require("../lib/pair.js").Pair;
 const joinConfig = require("../configs/join.json");
 
@@ -16,9 +16,9 @@ function join(queryPairs) {
             if (queryPairs[i].quote != queryPairs[i + 1].base) {
                 return;
             }
-            promises.push(mongoUtils.getPair(queryPairs[i].market, queryPairs[i].quote, queryPairs[i].base));
+            promises.push(cache.getPair(queryPairs[i].market, queryPairs[i].quote, queryPairs[i].base));
         }
-        promises.push(mongoUtils.getPair(queryPairs[i].market, queryPairs[i].quote, queryPairs[i].base));
+        promises.push(cache.getPair(queryPairs[i].market, queryPairs[i].quote, queryPairs[i].base));
         Promise.all(promises)
             .then((pairs) => {
                 let buyPrice = 1;
@@ -29,7 +29,10 @@ function join(queryPairs) {
                 }
                 let pair = new Pair(queryPairs[0].base, queryPairs[queryPairs.length - 1].quote,
                     queryPairs[queryPairs.length - 1].market, buyPrice, sellPrice);
-                mongoUtils.insertPair(pair);
+                if (pair.buyPrice == 0 || pair.sellPrice == 0) {
+                    return;
+                }
+                cache.insertPair(pair);
             });
     }
 }

@@ -31,7 +31,7 @@
     "margin": 0.1,
     "depth": 10,
     "position": {
-        "BitCNY": 20000,
+        "BitCNY": 10000,
         "BTC": 0.2
     },
     "bitshares":{

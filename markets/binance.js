@@ -4,7 +4,7 @@ const swap = require("../lib/pair.js").swap;
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("binance");
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 
 
 const interval = config.interval;
@@ -57,10 +57,10 @@ function call(base, quote) {
                 let sellPrice = averagePrice(depth.bids, depthSize, tokenPosition);
                 pair.buyPrice = buyPrice;
                 pair.sellPrice = sellPrice;
-                mongoUtils.insertPair(pair);
+                cache.insertPair(pair);
                 //反转价格对
                 if (base == "BTS") {
-                    mongoUtils.insertPair(swap(pair));
+                    cache.insertPair(swap(pair));
                 }
             }
         });

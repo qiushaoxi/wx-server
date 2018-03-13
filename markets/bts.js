@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 
 
 const interval = config.interval;
@@ -80,7 +80,7 @@ const call = function (base, target, precision, symbol, market) {
 
         token_amount_total = 0;
         cny_amount_total = 0;
-        for (let i = 0; i < depthSize && cny_amount_total < position; i++) {
+        for (let i = 0; i < depthSize && sellDepth + i < result.length && cny_amount_total < position; i++) {
             let token_unit = result[sellDepth + i].sell_price.quote.amount;
             let cny_unit = result[sellDepth + i].sell_price.base.amount;
             let price = (cny_unit / CNY_PRECISION) / (token_unit / precision);
@@ -95,7 +95,8 @@ const call = function (base, target, precision, symbol, market) {
 
         innerPair.buyPrice = buyPrice;
         innerPair.sellPrice = sellPrice;
-        mongoUtils.insertPair(innerPair);
+        innerPair.timestamp = Date.now();
+        cache.insertPair(innerPair);
 
     });
 }

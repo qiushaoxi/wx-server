@@ -3,7 +3,8 @@ const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("bigOne");
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
+
 
 const interval = config.interval;
 const position = config.position.BitCNY;
@@ -56,7 +57,7 @@ function call(market, base, symbol) {
                 bigOnePair.buyPrice = buyPrice;
                 bigOnePair.sellPrice = sellPrice;
 
-                mongoUtils.insertPair(bigOnePair);
+                cache.insertPair(bigOnePair);
             }
         });
 }

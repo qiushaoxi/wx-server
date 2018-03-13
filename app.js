@@ -5,13 +5,14 @@ const app = express();
 const _ = require('lodash');
 const crypto = require('crypto');
 const config = require('./config.json');
-const mongoUtils = require('./tools/mongo');
+const cache = require('./tools/cache');
 const fs = require('fs');
 const path = require('path');
 const common = require('./tools/common');
 const logger = common.getLogger('notify main');
 const front = require('./front/javascripts/index');
 const authConfig = require('./configs/auth.json');
+const fetch = require('./fetch');
 
 /* //后台轮询差价
 const margin = require('./margin');
@@ -63,13 +64,13 @@ app.get('/watch/:token', (req, res) => {
   var promises = [];
   var list = config.market[token];
   for (let i = 0; i < list.length; i++) {
-    promises.push(mongoUtils.getPair(list[i], token, "BitCNY"));
+    promises.push(cache.getPair(list[i], token, "BitCNY"));
   }
   Promise.all(promises)
     .then((docs) => {
       //给出相对bts价格，方便计算搬砖数量
       if (token != "BTS") {
-        mongoUtils.getPair("inner", "BTS", "BitCNY")
+        cache.getPair("inner", "BTS", "BitCNY")
           .then((pair) => {
             let btsPrice = (pair.buyPrice + pair.sellPrice) / 2
             for (let i in docs) {
@@ -98,7 +99,7 @@ app.get('/margin/:token', (req, res) => {
       if (i == j) {
         continue;
       }
-      promises.push(mongoUtils.getMargin(list[i], list[j], token));
+      promises.push(cache.getMargin(list[i], list[j], token));
     }
   }
   Promise.all(promises)
