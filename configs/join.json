@@ -406,5 +406,77 @@
             "quote": "STEEM",
             "market": "OPEN.STEEM"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "ETH",
+            "market": "lbank"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "lbank"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "QC",
+            "market": "ZB"
+        },
+        {
+            "base": "QC",
+            "quote": "BTS",
+            "market": "ZB"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "QC",
+            "market": "ZB"
+        },
+        {
+            "base": "QC",
+            "quote": "BTC",
+            "market": "ZB"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "QC",
+            "market": "ZB"
+        },
+        {
+            "base": "QC",
+            "quote": "ETH",
+            "market": "ZB"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "QC",
+            "market": "ZB"
+        },
+        {
+            "base": "QC",
+            "quote": "EOS",
+            "market": "ZB"
+        }
     ]
 ]
