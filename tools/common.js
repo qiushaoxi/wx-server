@@ -2,6 +2,8 @@ const config = require('../config.json');
 const log4js = require('log4js');
 var logger = log4js.getLogger('price-notify');
 logger.level = config.loggerLevel;
+const superagent = require('superagent');
+require('superagent-proxy')(superagent);
 
 const getLogger = function (name) {
     let _logger = logger;
@@ -27,5 +29,12 @@ function safelyParseJSON(json) {
     return parsed // Could be undefined!
 }
 
+function agentGet(url) {
+    if (config.env == "dev") {
+        return superagent(url).proxy('http://127.0.0.1:1087');
+    }
+    return superagent(url);
+}
 
-module.exports = { safelyParseJSON, getLogger };
+
+module.exports = { safelyParseJSON, getLogger, agentGet };

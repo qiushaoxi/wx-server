@@ -322,5 +322,29 @@
             "quote": "NEO",
             "market": "hitbtc"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "bittrex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "ETH",
+            "market": "bittrex"
+        }
     ]
 ]
