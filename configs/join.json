@@ -298,5 +298,29 @@
             "quote": "GXS",
             "market": "bit-z"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "EOS",
+            "market": "hitbtc"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "NEO",
+            "market": "hitbtc"
+        }
     ]
 ]

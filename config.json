@@ -18,18 +18,19 @@
     },
     "market":{
         "BTS":["inner","bigOne"],
-        "EOS":["bigOne","GDEX.EOS","binance","gateio"],
-        "ETH":["bigOne","GDEX.ETH","poloniex","binance","gateio"],
+        "EOS":["bigOne","GDEX.EOS","binance","gateio","OPEN.EOS","hitbtc"],
+        "ETH":["bigOne","GDEX.ETH","poloniex","binance","gateio","OPEN.ETH"],
         "QC":["ZB"],
-        "NEO":["binance","bigOne","GDEX.NEO","gateio"],
-        "GXS":["binance","bigOne","gateio","bit-z"],
-        "YOYO":["binance","inner"]
+        "NEO":["binance","bigOne","GDEX.NEO","gateio","hitbtc"],
+        "GXS":["binance","bigOne","gateio","bit-z","GDEX.GXS"],
+        "YOYO":["binance","inner"],
+        "BTC":["binance","gateio","poloniex","bigOne","GDEX.BTC","OPEN.BTC"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
     "margin": 0.1,
-    "depth": 10,
+    "depth": 20,
     "position": {
         "BitCNY": 10000,
         "BTC": 0.2,
