@@ -4,7 +4,7 @@ const swap = require("../lib/pair.js").swap;
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("poloniex");
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 
 
 const interval = config.interval;
@@ -49,17 +49,17 @@ function call(market, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let depth = JSON.parse(res.text);
+                let depth = common.safelyParseJSON(res.text);
                 let middlePrice = (1 * depth.asks[0][0] + 1 * depth.bids[0][0]) / 2;
                 let tokenPosition = position / middlePrice;
                 let buyPrice = averagePrice(depth.asks, depthSize, tokenPosition);
                 let sellPrice = averagePrice(depth.bids, depthSize, tokenPosition);
                 pair.buyPrice = buyPrice;
                 pair.sellPrice = sellPrice;
-                mongoUtils.insertPair(pair);
+                cache.insertPair(pair);
                 //反转价格对
                 if (symbol == "BTS") {
-                    mongoUtils.insertPair(swap(pair));
+                    cache.insertPair(swap(pair));
                 }
             }
         });
@@ -70,4 +70,5 @@ setInterval(() => {
     call("BTC_BTS", "BTS");
     call("BTC_ETH", "ETH");
     call("BTC_LTC", "LTC");
+    call("BTC_STEEM", "STEEM");
 }, interval);

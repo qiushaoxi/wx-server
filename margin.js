@@ -3,7 +3,7 @@ const mail = require('./tools/mail');
 const sms = require('./tools/sms');
 const common = require("./tools/common");
 const logger = common.getLogger('margin');
-const mongoUtils = require('./tools/mongo');
+const cache = require('./tools/cache');
 
 //config
 const interval = config.interval;
@@ -35,7 +35,7 @@ const sendNotification = function (bestMargin, message, symbol) {
 
 const watchQC = function () {
     setInterval(() => {
-        mongoUtils.getPair("ZB", "BitCNY", "QC")
+        cache.getPair("ZB", "BitCNY", "QC")
             .then((pair) => {
                 let margin = pair.sellPrice - 1;
                 if (margin > config.margin) {
@@ -56,7 +56,7 @@ const watchMargin = function (symbol) {
         //获取价格对
         let promises = [];
         for (let i = 0; i < markets.length; i++) {
-            promises.push(mongoUtils.getPair(markets[i], symbol, "BitCNY"));
+            promises.push(cache.getPair(markets[i], symbol, "BitCNY"));
         }
         Promise.all(promises)
             .then((pairs) => {
@@ -81,7 +81,7 @@ const watchMargin = function (symbol) {
                         }
                         let margin = getMargin(src, des);
                         //差价写入mongodb
-                        mongoUtils.insertMargin(src.market, des.market, symbol, margin);
+                        cache.insertMargin(src.market, des.market, symbol, margin);
                         //
                         if (margin > 0) {
                         }

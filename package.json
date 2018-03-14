@@ -25,6 +25,7 @@
     "mongodb": "^3.0.1",
     "nodemailer": "^4.4.1",
     "superagent": "^3.8.2",
+    "superagent-proxy": "^1.0.3",
     "ws": "^3.3.3"
   }
 }

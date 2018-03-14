@@ -3,7 +3,7 @@ const config = require("../config.json");
 const Pair = require("../lib/pair.js").Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("aex");
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 
 
 const interval = config.interval;
@@ -44,7 +44,7 @@ function call(base, target, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let depthGroup = JSON.parse(res.text);
+                let depthGroup = common.safelyParseJSON(res.text);
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (depthGroup.asks[0][0] + depthGroup.bids[0][0]) / 2;
                 let btsPosition = position / middlePrice;
@@ -53,7 +53,7 @@ function call(base, target, symbol) {
                 aexPair.buyPrice = buyPrice;
                 aexPair.sellPrice = sellPrice;
 
-                mongoUtils.insertPair(aexPair);
+                cache.insertPair(aexPair);
             }
         });
 }

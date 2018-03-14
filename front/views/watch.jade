@@ -17,10 +17,6 @@ block content
     br
     br
     div(class="container theme-showcase" role="main")
-      div(class="jumbotron")
-        h1 数字货币行情监控
-        p 获取交易所数据，对比差价，指导板砖。
-        p 所有报价以 BitCNY 计价。
       div(ng-app="myApp")
         div(class='row' ng-controller="BitCNY-QC")
           .col-md-3
@@ -31,7 +27,7 @@ block content
             h2 卖：[{{ pairs[0].sellPrice.toFixed(5) }}]
           .col-md-3
             h2 时间：{{makeTime(pair.timestamp)}}
-        - var tokens = ["BTS", "ETH", "EOS", "NEO", "GXS", "YOYO"]
+        - var tokens = ["BTS", "ETH", "BTC", "EOS", "NEO", "GXS", "YOYO", "STEEM"]
         each token in tokens
           .row(ng-controller="#{token}")
             //li #{token}: #{i}

@@ -28,8 +28,7 @@
             "base": "BitCNY",
             "quote": "BTS",
             "market": "inner"
-        }
-        ,
+        },
         {
             "base": "BTS",
             "quote": "BTC",
@@ -89,8 +88,7 @@
             "base": "BitCNY",
             "quote": "BTS",
             "market": "inner"
-        }
-        ,
+        },
         {
             "base": "BTS",
             "quote": "BTC",
@@ -203,6 +201,210 @@
             "base": "BTC",
             "quote": "LTC",
             "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "ETH",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "EOS",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "QUTM",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "gateio"
+        },
+        {
+            "base": "BTC",
+            "quote": "GXS",
+            "market": "gateio"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "GXS",
+            "market": "bit-z"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "EOS",
+            "market": "hitbtc"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "NEO",
+            "market": "hitbtc"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "bittrex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "ETH",
+            "market": "bittrex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "bittrex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "STEEM",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "hitbtc"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "STEEM",
+            "market": "OPEN.STEEM"
         }
     ]
 ]

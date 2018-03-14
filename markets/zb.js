@@ -4,7 +4,7 @@ const pair = require("../lib/pair.js");
 const Pair = pair.Pair;
 const common = require('../tools/common');
 const logger = common.getLogger("ZB");
-const mongoUtils = require('../tools/mongo');
+const cache = require('../tools/cache');
 
 
 const interval = config.interval;
@@ -47,16 +47,16 @@ function zbCall(market, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let zbDepth = JSON.parse(res.text);
+                let zbDepth = common.safelyParseJSON(res.text);
                 let middlePrice = (zbDepth.asks[0][0] + zbDepth.bids[0][0]) / 2;
                 let tokenPosition = position / middlePrice;
                 let buyPrice = zbAveragePrice(zbDepth.asks, depthSize, tokenPosition);
                 let sellPrice = zbAveragePrice(zbDepth.bids, depthSize, tokenPosition);
                 zbPair.buyPrice = buyPrice;
                 zbPair.sellPrice = sellPrice;
-                mongoUtils.insertPair(zbPair);
+                cache.insertPair(zbPair);
                 if(symbol=="BitCNY"){
-                    mongoUtils.insertPair(pair.swap(zbPair));
+                    cache.insertPair(pair.swap(zbPair));
                 }
             }
         });
