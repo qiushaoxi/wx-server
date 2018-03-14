@@ -43,7 +43,7 @@ function call(market, base, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let depthGroup = JSON.parse(res.text).data;
+                let depthGroup = common.safelyParseJSON(res.text).data;
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (1 * depthGroup.asks[0].price + 1 * depthGroup.bids[0].price) / 2;
                 let tokenPosition;

@@ -38,13 +38,7 @@ const call = function (base, quote) {
 
         gate.orderBook(symbol, function (res) {
             //console.log(res);
-            let depthGroup = {};
-            try {
-                depthGroup = JSON.parse(res);
-            } catch (err) {
-                reject(err);
-                logger.error(err, res);
-            }
+            let depthGroup = common.safelyParseJSON(res);
             if (depthGroup.result) {
                 //报价数组ask是反的
                 let middlePrice = (1 * depthGroup.asks[depthGroup.asks.length - 1][0] + 1 * depthGroup.bids[0][0]) / 2;

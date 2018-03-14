@@ -63,4 +63,5 @@ function call(base, quote) {
 setInterval(() => {
     call("EOS", "ETH");
     call("NEO", "ETH");
+    call("STEEM", "BTC");
 }, interval);

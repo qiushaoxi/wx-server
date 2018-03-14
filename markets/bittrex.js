@@ -65,4 +65,5 @@ function call(base, quote) {
 setInterval(() => {
     call("ETH", "BTC");
     call("NEO", "BTC");
+    call("STEEM", "BTC");
 }, interval);

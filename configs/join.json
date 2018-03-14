@@ -346,5 +346,65 @@
             "quote": "ETH",
             "market": "bittrex"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "bittrex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "poloniex"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "ETH",
+            "market": "binance"
+        },
+        {
+            "base": "ETH",
+            "quote": "STEEM",
+            "market": "binance"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "binance"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "hitbtc"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "STEEM",
+            "market": "OPEN.STEEM"
+        }
     ]
 ]

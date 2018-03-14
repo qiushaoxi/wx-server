@@ -51,7 +51,7 @@ function call(base, quote) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let depth = JSON.parse(res.text);
+                let depth = common.safelyParseJSON(res.text);
                 let middlePrice = (1 * depth.asks[0][0] + 1 * depth.bids[0][0]) / 2;
                 let tokenPosition = position / middlePrice;
                 let buyPrice = averagePrice(depth.asks, depthSize, tokenPosition);
@@ -79,4 +79,5 @@ setInterval(() => {
     call("QTUM", "ETH");
     call("YOYO", "ETH");
     call("DASH", "ETH");
+    call("STEEM","ETH");
 }, interval);

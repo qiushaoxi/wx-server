@@ -44,7 +44,7 @@ function call(base, target, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let depthGroup = JSON.parse(res.text);
+                let depthGroup = common.safelyParseJSON(res.text);
                 let depthSize = depthGroup.asks.length;
                 let middlePrice = (depthGroup.asks[0][0] + depthGroup.bids[0][0]) / 2;
                 let btsPosition = position / middlePrice;

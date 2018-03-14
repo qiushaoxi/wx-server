@@ -25,7 +25,8 @@
         "NEO":["binance","bigOne","GDEX.NEO","gateio","hitbtc","bittrex"],
         "GXS":["binance","bigOne","gateio","bit-z","GDEX.GXS"],
         "YOYO":["binance","inner"],
-        "BTC":["binance","gateio","poloniex","bigOne","GDEX.BTC","OPEN.BTC"]
+        "BTC":["binance","gateio","poloniex","bigOne","GDEX.BTC","OPEN.BTC"],
+        "STEEM":["binance","poloniex","hitbtc","bittrex","OPEN.STEEM"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
@@ -35,7 +36,8 @@
     "position": {
         "BitCNY": 10000,
         "BTC": 0.2,
-        "ETH": 3
+        "ETH": 3,
+        "BTS": 10000
     },
     "bitshares":{
         "expirationS":86400

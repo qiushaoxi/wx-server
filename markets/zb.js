@@ -47,7 +47,7 @@ function zbCall(market, symbol) {
                 logger.error("status code :" + res.statusCode);
                 return;
             } else {
-                let zbDepth = JSON.parse(res.text);
+                let zbDepth = common.safelyParseJSON(res.text);
                 let middlePrice = (zbDepth.asks[0][0] + zbDepth.bids[0][0]) / 2;
                 let tokenPosition = position / middlePrice;
                 let buyPrice = zbAveragePrice(zbDepth.asks, depthSize, tokenPosition);
