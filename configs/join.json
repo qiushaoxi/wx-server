@@ -110,11 +110,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "EOS",
             "market": "binance"
         }
@@ -122,11 +122,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "XRP",
             "market": "binance"
         }
@@ -134,11 +134,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "GXS",
             "market": "binance"
         }
@@ -146,11 +146,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "QTUM",
             "market": "binance"
         }
@@ -158,11 +158,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "YOYO",
             "market": "binance"
         }
@@ -170,11 +170,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "NEO",
             "market": "binance"
         }
@@ -182,11 +182,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "DASH",
             "market": "binance"
         }
@@ -374,11 +374,11 @@
     [
         {
             "base": "BitCNY",
-            "quote": "ETH",
+            "quote": "BTC",
             "market": "binance"
         },
         {
-            "base": "ETH",
+            "base": "BTC",
             "quote": "STEEM",
             "market": "binance"
         }

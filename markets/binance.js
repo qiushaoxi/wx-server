@@ -70,14 +70,12 @@ function call(base, quote) {
 //轮询获取最新价格
 setInterval(() => {
     call("BTS", "BTC");
+    call("STEEM","BTC");
     call("BTS", "ETH");
-    call("EOS", "ETH");
-    call("NEO", "ETH");
+    call("EOS", "BTC");
+    call("NEO", "BTC");
     call("LTC", "BTC");
-    call("XRP", "ETH");
-    call("GXS", "ETH");
-    call("QTUM", "ETH");
-    call("YOYO", "ETH");
-    call("DASH", "ETH");
-    call("STEEM","ETH");
+    call("GXS", "BTC");
+    call("YOYO", "BTC");
+    call("DASH", "BTC");
 }, interval);

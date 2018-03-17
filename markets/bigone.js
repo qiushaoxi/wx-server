@@ -35,7 +35,7 @@ function call(market, base, symbol) {
     let url = "https://api.big.one/markets/" + market + "/book";
     let bigOnePair = new Pair(base, symbol, "bigOne");
 
-    superagent.get(url)
+    common.agentGet(url)
         .end(function (err, res) {
             if (err) {
                 logger.error("http error :" + err);
