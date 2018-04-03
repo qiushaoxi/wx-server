@@ -478,5 +478,65 @@
             "quote": "EOS",
             "market": "ZB"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "BTC",
+            "market": "huobi"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTS",
+            "market": "inner"
+        },
+        {
+            "base": "BTS",
+            "quote": "ETH",
+            "market": "huobi"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "huobi"
+        },
+        {
+            "base": "BTC",
+            "quote": "EOS",
+            "market": "huobi"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "huobi"
+        },
+        {
+            "base": "BTC",
+            "quote": "LTC",
+            "market": "huobi"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "huobi"
+        },
+        {
+            "base": "BTC",
+            "quote": "NEO",
+            "market": "huobi"
+        }
     ]
 ]

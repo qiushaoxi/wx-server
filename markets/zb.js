@@ -35,7 +35,7 @@ function zbAveragePrice(group, depth, position) {
 //调用 zb rest api
 function zbCall(market, symbol) {
     let zbPair = new Pair("QC", symbol, "ZB");
-    superagent.get(zbUrl)
+    common.agentGet(zbUrl)
         .query({
             "market": market,
             "size": depthSize
