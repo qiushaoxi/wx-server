@@ -45,8 +45,8 @@ block content
                     tbody
                       tr(ng-repeat="pair in pairs")
                         td {{ pair.market }}
-                        td {{ pair.buyPrice.toFixed(2) }} | {{ pair.buyPriceByBTS.toFixed(2) }}
-                        td {{ pair.sellPrice.toFixed(2) }} | {{ pair.sellPriceByBTS.toFixed(2) }}
+                        td {{ pair.buyPrice.toFixed(3) }} | {{ pair.buyPriceByBTS.toFixed(3) }}
+                        td {{ pair.sellPrice.toFixed(3) }} | {{ pair.sellPriceByBTS.toFixed(3) }}
                         td {{ makeTime(pair.timestamp) }}
                 .col-md-6
                   table.table
