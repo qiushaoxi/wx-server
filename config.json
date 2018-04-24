@@ -18,20 +18,20 @@
         "restartConnection": 200
     },
     "market":{
-        "BTS":["inner","bigOne","ZB"],
-        "EOS":["binance","huobi","bigOne","GDEX.EOS","gateio","OPEN.EOS","hitbtc","ZB"],
-        "ETH":["binance","huobi","bigOne","GDEX.ETH","poloniex","gateio","OPEN.ETH","bittrex","lbank","ZB"],
+        "BTS":["inner","bigOne"],
+        "EOS":["binance","huobi","bigOne","GDEX.EOS","OPEN.EOS"],
+        "ETH":["binance","huobi","bigOne","GDEX.ETH","OPEN.ETH","bittrex"],
         "QC":["ZB"],
-        "NEO":["binance","huobi","bigOne","GDEX.NEO","gateio","hitbtc","bittrex"],
-        "GXS":["binance","bigOne","gateio","bit-z","GDEX.GXS"],
+        "NEO":["binance","huobi","bigOne","GDEX.NEO","bittrex"],
+        "GXS":["binance","bigOne","GDEX.GXS"],
         "YOYO":["binance","inner"],
-        "BTC":["binance","huobi","gateio","poloniex","bigOne","GDEX.BTC","OPEN.BTC","lbank","ZB"],
-        "STEEM":["binance","poloniex","hitbtc","bittrex","OPEN.STEEM"]
+        "BTC":["binance","huobi","bigOne","GDEX.BTC","OPEN.BTC"],
+        "STEEM":["binance","bittrex","OPEN.STEEM"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,
     "interval": 1000,
-    "margin": 0.05,
+    "margin": 0.03,
     "depth": 20,
     "position": {
         "BitCNY": 10000,
