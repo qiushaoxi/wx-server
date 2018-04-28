@@ -538,5 +538,17 @@
             "quote": "NEO",
             "market": "huobi"
         }
+    ],
+    [
+        {
+            "base": "BitCNY",
+            "quote": "BTC",
+            "market": "huobi"
+        },
+        {
+            "base": "BTC",
+            "quote": "STEEM",
+            "market": "huobi"
+        }
     ]
 ]
