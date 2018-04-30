@@ -6,7 +6,7 @@ const common = require('../tools/common');
 
 
 const interval = config.interval;
-const depthSize = config.depth;
+const depthSize = 100;//config.depth;
 
 const url = 'wss://bitshares-api.wancloud.io/ws'; //wss://bit.btsabc.org/ws';
 

@@ -75,4 +75,5 @@ setInterval(() => {
     call("EOS", "BTC");
     call("NEO", "BTC");
     call("LTC", "BTC");
+    call("STEEM", "BTC");
 }, interval);
