@@ -10,6 +10,7 @@ const depthSize = config.depth;
 
 const url = 'wss://bitshares-api.wancloud.io/ws'; //wss://bit.btsabc.org/ws';
 
+// wscat -c 'wss://bitshares-api.wancloud.io/ws'
 //> { "id": 1, "method": "call", "params": [0, "lookup_asset_symbols",[["CNY"]]] }
 const CNY = "1.3.113";
 const BTS = "1.3.0";
@@ -21,6 +22,7 @@ const GDEX_BTC = "1.3.2241";
 const GDEX_BTM = "1.3.2790";
 const GDEX_NEO = "1.3.2919";
 const GDEX_GXS = "1.3.3445";
+const GDEX_SEER = "1.3.3736";
 const OPEN_BTC = "1.3.861";
 const OPEN_ETH = "1.3.850";
 const OPEN_STEEM = "1.3.973";
@@ -35,6 +37,7 @@ const BTC_PRECISION = 100000000;
 const NEO_PRECISION = 10000000;
 const GXS_PRECISION = 1000000;
 const STEEM_PRECISION = 1000;
+const SEER_PRECISION = 100000;
 
 
 
@@ -132,3 +135,4 @@ call(CNY, OPEN_BTC, BTC_PRECISION, "BTC", "OPEN.BTC");
 call(CNY, OPEN_ETH, ETH_PRECISION, "ETH", "OPEN.ETH");
 call(CNY, OPEN_EOS, EOS_PRECISION, "EOS", "OPEN.EOS");
 call(BTS, OPEN_STEEM, STEEM_PRECISION, "STEEM", "OPEN.STEEM");
+call(CNY, GDEX_SEER, SEER_PRECISION, "SEER", "GDEX.SEER");

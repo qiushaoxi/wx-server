@@ -71,4 +71,5 @@ function call(base, quote) {
 setInterval(() => {
     call("BTS", "ETH");
     call("BTS", "BTC");
+    call("SEER","ETH");
 }, interval);

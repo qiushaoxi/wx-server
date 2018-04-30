@@ -19,14 +19,15 @@
     },
     "market":{
         "BTS":["inner","bigOne"],
-        "EOS":["binance","huobi","bigOne","GDEX.EOS","OPEN.EOS"],
-        "ETH":["binance","huobi","bigOne","GDEX.ETH","OPEN.ETH","bittrex"],
+        "EOS":["binance","huobi","bigOne","GDEX.EOS"],
+        "ETH":["binance","huobi","bigOne","GDEX.ETH","OPEN.ETH","bittrex","lbank"],
         "QC":["ZB"],
         "NEO":["binance","huobi","bigOne","GDEX.NEO","bittrex"],
         "GXS":["binance","bigOne","GDEX.GXS"],
         "YOYO":["binance","inner"],
-        "BTC":["binance","huobi","bigOne","GDEX.BTC","OPEN.BTC"],
-        "STEEM":["binance","bittrex","OPEN.STEEM","huobi"]
+        "BTC":["binance","huobi","bigOne","GDEX.BTC"],
+        "STEEM":["binance","bittrex","OPEN.STEEM","huobi"],
+        "SEER":["GDEX.SEER","lbank"]
     },
     "loggerLevel": "warn",
     "mail_timeout": 600000,

@@ -434,6 +434,18 @@
     [
         {
             "base": "BitCNY",
+            "quote": "ETH",
+            "market": "lbank"
+        },
+        {
+            "base": "ETH",
+            "quote": "SEER",
+            "market": "lbank"
+        }
+    ],
+    [
+        {
+            "base": "BitCNY",
             "quote": "QC",
             "market": "ZB"
         },

@@ -14,5 +14,5 @@ const binanceMarket = require('./markets/binance');
 //const bitzMarket = require('./markets/bit-z');
 //const hitbtcMarket = require('./markets/hitbtc');
 const bittrexMarket = require('./markets/bittrex');
-//const lbankMarket = require('./markets/lbank');
+const lbankMarket = require('./markets/lbank');
 const huobiMarket = require('./markets/huobi');
